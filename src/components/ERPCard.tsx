@@ -8,7 +8,7 @@ export interface ERP {
   currentStatus: string[];
   nextSteps: string[];
   targetDate: string;
-  extendedDate?: string;
+  extendedDate?: string[];
   challenges: string[];
   primaryContacts: string[];
   businessUsers: string[];

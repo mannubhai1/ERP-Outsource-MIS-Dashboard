@@ -8,7 +8,7 @@ export interface ERP {
   currentStatus: string[];
   nextSteps: string[];
   targetDate: string;
-  extendedDate?: string;
+  extendedDate?: string[];
   challenges: string[];
   primaryContacts: string[];
   businessUsers: string[];
@@ -37,7 +37,7 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
 
   const csvData = await response.text();
 
-  const { data } = Papa.parse<ERP>(csvData, {
+  const { data } = Papa.parse<Record<string, string>>(csvData, {
     header: true,
     skipEmptyLines: true,
   });
