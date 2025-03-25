@@ -37,7 +37,7 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
 
   const csvData = await response.text();
 
-  const { data } = Papa.parse<any>(csvData, {
+  const { data } = Papa.parse<ERP>(csvData, {
     header: true,
     skipEmptyLines: true,
   });
