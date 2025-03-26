@@ -8,7 +8,7 @@ export interface ERP {
   currentStatus: string[];
   nextSteps: string[];
   targetDate: string;
-  extendedDate?: string[];
+  extendedDate?: string;
   challenges: string[];
   primaryContacts: string[];
   businessUsers: string[];
@@ -16,10 +16,29 @@ export interface ERP {
   Agreement: string[];
   Commercial: string[];
 }
+export interface ERPInput {
+  id: number;
+  name: string;
+  companies: string;
+  status: string;
+  currentStatus: string;
+  nextSteps: string;
+  targetDate: string;
+  extendedDate?: string;
+  challenges: string;
+  primaryContacts: string;
+  businessUsers: string;
+  NDA: string;
+  Agreement: string;
+  Commercial: string;
+}
 
 const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/e/${process.env.SHEET_ID}/pub?gid=0&single=true&output=csv`;
 
-const safeSplit = (value: string | undefined, separator: RegExp | string) =>
+const safeSplit = (
+  value: string | undefined,
+  separator: RegExp | string
+): string[] =>
   value
     ? value
         .split(separator)
@@ -27,7 +46,8 @@ const safeSplit = (value: string | undefined, separator: RegExp | string) =>
         .filter((s) => s.length > 0)
     : [];
 
-const safeString = (value: string | undefined) => (value ? value.trim() : "");
+const safeString = (value: string | undefined): string =>
+  value ? value.trim() : "";
 
 export async function fetchGoogleSheetData(): Promise<ERP[]> {
   const response = await fetch(SHEET_CSV_URL, {
@@ -37,9 +57,11 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
 
   const csvData = await response.text();
 
-  const { data } = Papa.parse<any>(csvData, {
+  // Use Papa.parse with generic type to ensure we get typed data
+  const { data } = Papa.parse<ERPInput>(csvData, {
     header: true,
     skipEmptyLines: true,
+    dynamicTyping: true,
   });
 
   const filteredData = data.filter(
@@ -50,14 +72,14 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
     id: index + 1,
     name: safeString(row.name),
     companies: safeSplit(
-      row.companies.replace(/[\r\n]+/g, "/").replace(/\s*\/\s*/g, "/"),
+      row.companies?.replace(/[\r\n]+/g, "/").replace(/\s*\/\s*/g, "/"),
       "/"
     ),
     status: safeString(row.status),
     currentStatus: safeSplit(row.currentStatus, /\r?\n/),
     nextSteps: safeSplit(row.nextSteps, /\r?\n/),
     targetDate: safeString(row.targetDate),
-    extendedDate: safeSplit(row.extendedDate, /\r?\n/),
+    extendedDate: row.extendedDate ? safeString(row.extendedDate) : "",
     challenges: safeSplit(row.challenges, /\r?\n/),
     primaryContacts: safeSplit(row.primaryContacts, "/"),
     businessUsers: safeSplit(row.businessUsers, "/"),
