@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 
-const BackToHomeButton = () => {
+export default function BackToHomeButton() {
   const router = useRouter();
+
   const handleBackToHome = () => {
     router.push("/");
   };
@@ -11,11 +12,22 @@ const BackToHomeButton = () => {
   return (
     <button
       onClick={handleBackToHome}
-      className="text-md md:text-lg px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+      className="
+        text-sm
+        md:text-base
+        lg:text-lg
+        px-3
+        py-2
+        md:px-4
+        md:py-3
+        bg-blue-500
+        text-white
+        rounded-md
+        hover:bg-blue-600
+        transition
+      "
     >
       Back to Home
     </button>
   );
-};
-
-export default BackToHomeButton;
+}

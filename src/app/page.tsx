@@ -22,8 +22,6 @@ export interface ERP {
 
 async function getData() {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  console.log("baseUrl:", baseUrl);
-
   const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch");
   return res.json();
@@ -42,7 +40,6 @@ export default function Home() {
         console.error("Error fetching ERP data:", error);
       }
     };
-
     loadData();
   }, []);
 
@@ -53,54 +50,55 @@ export default function Home() {
       return erps.filter((erp) => erp.status === "Onboarded");
     } else if (status === "outsourcing") {
       return erps.filter((erp) => erp.status === "Outsourcing Contract");
-    } else {
-      return erps;
     }
+    return erps;
   };
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-black mb-6">
+      <h1 className="text-2xl md:text-4xl font-bold text-black mb-6">
         ERP / OUTSOURCING DASHBOARD
       </h1>
 
-      {/* Tabs Section */}
-      <div className="flex justify-between space-x-4 mb-6">
+      {/* Responsive Tabs Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <button
-          className={`text-2xl font-bold flex-1 ${
+          className={`text-lg md:text-2xl font-bold rounded p-2 ${
             selectedTab === "pipeline"
               ? "bg-blue-500 text-white"
               : "bg-gray-200 text-black"
-          } p-2 rounded`}
+          }`}
           onClick={() => setSelectedTab("pipeline")}
         >
           ERP IN PIPELINE
         </button>
+
         <button
-          className={`text-2xl font-bold flex-1 ${
+          className={`text-lg md:text-2xl font-bold rounded p-2 ${
             selectedTab === "onboarded"
               ? "bg-blue-500 text-white"
               : "bg-gray-200 text-black"
-          } p-2 rounded`}
+          }`}
           onClick={() => setSelectedTab("onboarded")}
         >
           ERP ONBOARDED
         </button>
+
         <button
-          className={`text-2xl font-bold flex-1 ${
+          className={`text-lg md:text-2xl font-bold rounded p-2 ${
             selectedTab === "outsourcing"
               ? "bg-blue-500 text-white"
               : "bg-gray-200 text-black"
-          } p-2 rounded`}
+          }`}
           onClick={() => setSelectedTab("outsourcing")}
         >
           OUTSOURCING CONTRACT
         </button>
       </div>
 
-      {/* ERP Cards based on selected tab */}
+      {/* ERP Cards Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filterData(selectedTab).map((erp: ERP) => (
+        {filterData(selectedTab).map((erp) => (
           <ERPCard key={erp.id} erp={erp} />
         ))}
       </div>

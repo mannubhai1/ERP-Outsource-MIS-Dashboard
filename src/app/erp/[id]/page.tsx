@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import BackToHomeButton from "../../../components/BackToHome";
 
 interface ERP {
@@ -148,6 +149,8 @@ export default async function ERPDetail({
           <div>No companies available for this ERP.</div>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }
