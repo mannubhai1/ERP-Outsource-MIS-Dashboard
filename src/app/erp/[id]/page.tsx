@@ -18,7 +18,7 @@ interface ERP {
 }
 
 async function getERP(id: string) {
-  const baseUrl = process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`;
+  const baseUrl = "https://erp-outsource-mis-dashboard.vercel.app";
   const res = await fetch(`${baseUrl}/api/erps/${id}`, { cache: "no-store" });
   if (!res.ok) return null;
   return res.json();

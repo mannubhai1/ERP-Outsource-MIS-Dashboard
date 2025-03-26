@@ -20,7 +20,7 @@ export interface ERP {
 }
 
 async function getData() {
-  const baseUrl = process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`;
+  const baseUrl = "https://erp-outsource-mis-dashboard.vercel.app";
 
   const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch");
