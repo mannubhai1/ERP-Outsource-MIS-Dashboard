@@ -2,27 +2,11 @@
 import { useEffect, useState } from "react";
 import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
-
-export interface ERP {
-  id: number;
-  name: string;
-  companies: string[];
-  status: string;
-  currentStatus: string[];
-  nextSteps: string[];
-  targetDate: string;
-  extendedDate?: string;
-  challenges: string[];
-  primaryContacts: string[];
-  businessUsers: string[];
-  NDA: string[];
-  Agreement: string[];
-  Commercial: string[];
-}
+import { ERP } from "@/lib/types";
 
 async function getData() {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
+  const res = await fetch(`${baseUrl}/api/erps`);
   if (!res.ok) throw new Error("Failed to fetch");
   return res.json();
 }

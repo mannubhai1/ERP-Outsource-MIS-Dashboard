@@ -1,37 +1,5 @@
 import Papa from "papaparse";
-
-export interface ERP {
-  id: number;
-  name: string;
-  companies: string[];
-  status: string;
-  currentStatus: string[];
-  nextSteps: string[];
-  targetDate: string;
-  extendedDate?: string;
-  challenges: string[];
-  primaryContacts: string[];
-  businessUsers: string[];
-  NDA: string[];
-  Agreement: string[];
-  Commercial: string[];
-}
-export interface ERPInput {
-  id: number;
-  name: string;
-  companies: string;
-  status: string;
-  currentStatus: string;
-  nextSteps: string;
-  targetDate: string;
-  extendedDate?: string;
-  challenges: string;
-  primaryContacts: string;
-  businessUsers: string;
-  NDA: string;
-  Agreement: string;
-  Commercial: string;
-}
+import { ERP, ERPInput } from "@/lib/types";
 
 const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/e/${process.env.SHEET_ID}/pub?gid=0&single=true&output=csv`;
 
@@ -51,13 +19,11 @@ const safeString = (value: string | undefined): string =>
 
 export async function fetchGoogleSheetData(): Promise<ERP[]> {
   const response = await fetch(SHEET_CSV_URL, {
-    cache: "no-store",
     next: { revalidate: 0 },
   });
 
   const csvData = await response.text();
 
-  // Use Papa.parse with generic type to ensure we get typed data
   const { data } = Papa.parse<ERPInput>(csvData, {
     header: true,
     skipEmptyLines: true,
@@ -86,5 +52,8 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
     NDA: safeSplit(row.NDA, /\r?\n/),
     Agreement: safeSplit(row.Agreement, /\r?\n/),
     Commercial: safeSplit(row.Commercial, /\r?\n/),
+    Brochures: safeSplit(row.Brochures, /\r?\n/),
+    RFQs: safeSplit(row.RFQs, /\r?\n/),
+    Miscellanous: safeString(row.Miscellanous),
   }));
 }
