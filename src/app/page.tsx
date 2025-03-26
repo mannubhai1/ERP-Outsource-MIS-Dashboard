@@ -21,7 +21,7 @@ export interface ERP {
 
 async function getData() {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
+    process.env.NEXT_PUBLIC_API_URL ||
     (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`);
 
   const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
