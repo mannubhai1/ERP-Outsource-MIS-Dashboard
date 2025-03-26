@@ -40,53 +40,54 @@ export default function Home() {
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
-      <h1 className="text-2xl md:text-4xl font-bold text-black mb-6">
-        ERP / OUTSOURCING DASHBOARD
-      </h1>
+      <div className="mb-15">
+        <h1 className="text-2xl md:text-4xl font-bold text-black mb-6">
+          ERP / OUTSOURCING DASHBOARD
+        </h1>
 
-      {/* Responsive Tabs Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <button
-          className={`text-lg md:text-2xl font-bold rounded p-2 ${
-            selectedTab === "pipeline"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-black"
-          }`}
-          onClick={() => setSelectedTab("pipeline")}
-        >
-          ERP IN PIPELINE
-        </button>
+        {/* Responsive Tabs Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <button
+            className={`text-lg md:text-2xl font-bold rounded p-2 ${
+              selectedTab === "pipeline"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 text-black"
+            }`}
+            onClick={() => setSelectedTab("pipeline")}
+          >
+            ERP IN PIPELINE
+          </button>
 
-        <button
-          className={`text-lg md:text-2xl font-bold rounded p-2 ${
-            selectedTab === "onboarded"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-black"
-          }`}
-          onClick={() => setSelectedTab("onboarded")}
-        >
-          ERP ONBOARDED
-        </button>
+          <button
+            className={`text-lg md:text-2xl font-bold rounded p-2 ${
+              selectedTab === "onboarded"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 text-black"
+            }`}
+            onClick={() => setSelectedTab("onboarded")}
+          >
+            ERP ONBOARDED
+          </button>
 
-        <button
-          className={`text-lg md:text-2xl font-bold rounded p-2 ${
-            selectedTab === "outsourcing"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-black"
-          }`}
-          onClick={() => setSelectedTab("outsourcing")}
-        >
-          OUTSOURCING CONTRACT
-        </button>
+          <button
+            className={`text-lg md:text-2xl font-bold rounded p-2 ${
+              selectedTab === "outsourcing"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 text-black"
+            }`}
+            onClick={() => setSelectedTab("outsourcing")}
+          >
+            OUTSOURCING CONTRACT
+          </button>
+        </div>
+
+        {/* ERP Cards Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filterData(selectedTab).map((erp) => (
+            <ERPCard key={erp.id} erp={erp} />
+          ))}
+        </div>
       </div>
-
-      {/* ERP Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filterData(selectedTab).map((erp) => (
-          <ERPCard key={erp.id} erp={erp} />
-        ))}
-      </div>
-
       <Footer />
     </div>
   );
