@@ -20,7 +20,8 @@ export interface ERP {
 }
 
 async function getData() {
-  const res = await fetch(`/api/erps`, { cache: "no-store" });
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch");
   return res.json();
 }

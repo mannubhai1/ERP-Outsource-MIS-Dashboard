@@ -18,7 +18,8 @@ interface ERP {
 }
 
 async function getERP(id: string) {
-  const res = await fetch(`/api/erps/${id}`, { cache: "no-store" });
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const res = await fetch(`${baseUrl}/api/erps/${id}`, { cache: "no-store" });
   if (!res.ok) return null;
   return res.json();
 }
