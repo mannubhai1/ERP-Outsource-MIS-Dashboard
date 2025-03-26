@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import ERPCard from "@/components/ERPCard";
+import Footer from "@/components/Footer";
 
 export interface ERP {
   id: number;
@@ -20,7 +21,7 @@ export interface ERP {
 }
 
 async function getData() {
-  const baseUrl = "https://erp-outsource-mis-dashboard.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
   const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch");
@@ -32,7 +33,6 @@ export default function Home() {
   const [erps, setErps] = useState<ERP[]>([]);
 
   useEffect(() => {
-    // This ensures data is fetched after component mounts
     const loadData = async () => {
       try {
         const erpData = await getData();
@@ -45,7 +45,6 @@ export default function Home() {
     loadData();
   }, []);
 
-  // Function to filter ERP data based on the selected tab
   const filterData = (status: string) => {
     if (status === "pipeline") {
       return erps.filter((erp) => erp.status === "In Pipeline");
@@ -104,6 +103,8 @@ export default function Home() {
           <ERPCard key={erp.id} erp={erp} />
         ))}
       </div>
+
+      <Footer />
     </div>
   );
 }
