@@ -29,7 +29,7 @@ export default function Home() {
       try {
         const erpData = await getData();
         setErps(erpData);
-        setLoading(false);
+        setLoading(false); // when you want to test loading page, make it true
       } catch (error) {
         console.error("Error fetching ERP data:", error);
         setLoading(false);
@@ -45,6 +45,9 @@ export default function Home() {
   }, []);
 
   const filterData = (status: string) => {
+    if (!status) {
+      return [];
+    }
     if (status === "pipeline") {
       return erps.filter((erp) => erp.status === "In Pipeline");
     } else if (status === "onboarded") {
@@ -56,7 +59,11 @@ export default function Home() {
   };
 
   const handleTabChange = (currentTab: string) => {
-    setSelectedTab(currentTab);
+    if (currentTab === selectedTab) {
+      setSelectedTab("");
+    } else {
+      setSelectedTab(currentTab);
+    }
     localStorage.setItem("selectedTab", currentTab);
   };
 

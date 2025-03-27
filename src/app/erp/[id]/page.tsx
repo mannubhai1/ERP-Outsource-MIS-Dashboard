@@ -134,20 +134,22 @@ export default async function ERPDetail({
                               : "grid grid-cols-2 gap-4 justify-items-center"
                           } w-full`}
                         >
-                          {companyDocs.map(
-                            (doc, index) =>
-                              doc.value[idx] &&
-                              doc.value[idx] !== "" && (
+                          {companyDocs.map((doc, index) => {
+                            const value = doc.value[idx];
+                            if (value === "NA") return null;
+                            return (
+                              value !== "NA" && (
                                 <a
                                   key={index}
-                                  href={doc.value[idx]}
+                                  href={value}
                                   target="_blank"
                                   className="docs mb-2 text-yellow-300 hover:text-white"
                                 >
                                   {doc.label}
                                 </a>
                               )
-                          )}
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
