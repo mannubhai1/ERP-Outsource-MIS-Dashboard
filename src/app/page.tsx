@@ -6,16 +6,21 @@ import { ERP } from "@/lib/types";
 
 async function getData() {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${baseUrl}/api/erps`);
+  const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch");
   return res.json();
 }
 
 export default function Home() {
-  const [selectedTab, setSelectedTab] = useState("pipeline");
+  const [selectedTab, setSelectedTab] = useState<string>("pipeline");
   const [erps, setErps] = useState<ERP[]>([]);
 
   useEffect(() => {
+    const lastVisitedTab = localStorage.getItem("selectedTab");
+    if (lastVisitedTab) {
+      setSelectedTab(lastVisitedTab);
+    }
+
     const loadData = async () => {
       try {
         const erpData = await getData();
@@ -38,6 +43,11 @@ export default function Home() {
     return erps;
   };
 
+  const handleTabChange = (currentTab: string) => {
+    setSelectedTab(currentTab);
+    localStorage.setItem("selectedTab", currentTab);
+  };
+
   return (
     <div className="p-6 min-h-screen bg-gray-100">
       <div className="mb-15">
@@ -53,7 +63,7 @@ export default function Home() {
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-black"
             }`}
-            onClick={() => setSelectedTab("pipeline")}
+            onClick={() => handleTabChange("pipeline")}
           >
             ERP IN PIPELINE
           </button>
@@ -64,7 +74,7 @@ export default function Home() {
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-black"
             }`}
-            onClick={() => setSelectedTab("onboarded")}
+            onClick={() => handleTabChange("onboarded")}
           >
             ERP ONBOARDED
           </button>
@@ -75,7 +85,7 @@ export default function Home() {
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-black"
             }`}
-            onClick={() => setSelectedTab("outsourcing")}
+            onClick={() => handleTabChange("outsourcing")}
           >
             OUTSOURCING CONTRACT
           </button>

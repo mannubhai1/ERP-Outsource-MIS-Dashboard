@@ -5,7 +5,7 @@ import BackToHomeButton from "@/components/BackToHome";
 // Fetch ERP data
 async function getERP(id: string) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${baseUrl}/api/erps/${id}`);
+  const res = await fetch(`${baseUrl}/api/erps/${id}`, { cache: "no-store" });
   if (!res.ok) return null;
   return res.json();
 }
@@ -25,7 +25,7 @@ export default async function ERPDetail({
     return <div className="p-6">ERP Not Found</div>;
   }
 
-  // Define the first row and second row content in arrays
+  // Define the first row content in arrays which are targetDate, primaryContacts, and businessUsers
   const firstRowData = [
     {
       label: "Target Date",
@@ -41,6 +41,7 @@ export default async function ERPDetail({
     },
   ];
 
+  // Define the second row content in arrays which are currentStatus, nextSteps, and challenges
   const secondRowData = [
     {
       label: "Current Status",
@@ -51,7 +52,7 @@ export default async function ERPDetail({
     { label: "Challenges", value: erp.challenges, style: "bg-red-300" },
   ];
 
-  // Define the company documents (NDA, Agreement, Commercial) for each company
+  // Define the company documents for each company
   const companyDocs = [
     { label: "NDA", value: erp.NDA },
     { label: "Agreement", value: erp.Agreement },
@@ -59,6 +60,13 @@ export default async function ERPDetail({
     { label: "Brochures", value: erp.Brochures },
     { label: "RFQs", value: erp.RFQs },
   ];
+
+  let companyDocsLength: number = 0;
+  companyDocs.forEach((doc) => {
+    if (doc.value.length > 0) {
+      companyDocsLength++;
+    }
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -121,7 +129,7 @@ export default async function ERPDetail({
                         {/* Render the company documents dynamically */}
                         <div
                           className={`${
-                            companyDocs.length === 1
+                            companyDocsLength === 1
                               ? "grid grid-cols-1 gap-4 justify-items-center"
                               : "grid grid-cols-2 gap-4 justify-items-center"
                           } w-full`}

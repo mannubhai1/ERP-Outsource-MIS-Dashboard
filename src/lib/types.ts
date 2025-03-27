@@ -37,12 +37,3 @@ export interface ERPInput {
   RFQs: string;
   Miscellanous?: string;
 }
-
-export interface CompanyData {
-  name: string;
-  NDA?: string;
-  Agreement?: string;
-  Commercial?: string;
-  Brochures?: string;
-  RFQs?: string;
-}
