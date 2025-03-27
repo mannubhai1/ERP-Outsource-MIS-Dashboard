@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
 import { ERP } from "@/lib/types";
+import Loading from "@/components/Loading";
 
 async function getData() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
+  const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
+  const res: Response = await fetch(`${baseUrl}/api/erps`, {
+    cache: "no-store",
+  });
   if (!res.ok) throw new Error("Failed to fetch");
   return res.json();
 }
@@ -14,6 +17,7 @@ async function getData() {
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState<string>("pipeline");
   const [erps, setErps] = useState<ERP[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const lastVisitedTab = localStorage.getItem("selectedTab");
@@ -25,11 +29,19 @@ export default function Home() {
       try {
         const erpData = await getData();
         setErps(erpData);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching ERP data:", error);
+        setLoading(false);
       }
     };
     loadData();
+
+    const interval = setInterval(() => {
+      loadData();
+    }, 300000); // Refresh every 5 minutes
+
+    return () => clearInterval(interval);
   }, []);
 
   const filterData = (status: string) => {
@@ -47,6 +59,10 @@ export default function Home() {
     setSelectedTab(currentTab);
     localStorage.setItem("selectedTab", currentTab);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
