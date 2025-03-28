@@ -157,13 +157,4 @@ a .docs:hover {
     background: red;
     animation: animloader113 1s linear infinite alternate;
   }
-
-  /* If you need that "striped" effect (nth-child):
-     section:nth-child(2n + 1) {
-       background-color: rgba(0, 0, 0, 0.1);
-     }
-     section:hover {
-       background-color: rgba(0, 0, 0, 0.3);
-     }
-  */
 }

@@ -10,7 +10,7 @@ async function getData() {
   const res: Response = await fetch(`${baseUrl}/api/erps`, {
     cache: "no-store",
   });
-  if (!res.ok) throw new Error("Failed to fetch");
+  if (!res.ok) throw new Error("Failed to fetch ERP Data");
   return res.json();
 }
 
@@ -26,12 +26,13 @@ export default function Home() {
     }
 
     const loadData = async () => {
+      setLoading(true);
       try {
         const erpData = await getData();
         setErps(erpData);
-        setLoading(false); // when you want to test loading page, make it true
       } catch (error) {
         console.error("Error fetching ERP data:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -39,15 +40,12 @@ export default function Home() {
 
     const interval = setInterval(() => {
       loadData();
-    }, 300000); // Refresh every 5 minutes
+    }, 5000); // Refresh every 5 minutes
 
     return () => clearInterval(interval);
   }, []);
 
   const filterData = (status: string) => {
-    if (!status) {
-      return [];
-    }
     if (status === "pipeline") {
       return erps.filter((erp) => erp.status === "In Pipeline");
     } else if (status === "onboarded") {
@@ -55,7 +53,7 @@ export default function Home() {
     } else if (status === "outsourcing") {
       return erps.filter((erp) => erp.status === "Outsourcing Contract");
     }
-    return erps;
+    return [];
   };
 
   const handleTabChange = (currentTab: string) => {
