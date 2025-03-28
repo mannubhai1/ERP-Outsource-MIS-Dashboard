@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ERP MIS",
-  description: "Created by Manurbhav & Team",
+  description: "Created by Mannu",
 };
 
 export default function RootLayout({
