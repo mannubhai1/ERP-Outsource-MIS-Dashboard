@@ -61,8 +61,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
         // Calculate progress percentage
         const progressPercentage =
           totalCount === 0 ? 0 : (trueCount / totalCount) * 100;
-        // setProgress(progressPercentage);
-        setProgress(80);
+        setProgress(progressPercentage);
+        // setProgress(80);
       } catch (error) {
         console.error("Error fetching or parsing CSV:", error);
       } finally {
