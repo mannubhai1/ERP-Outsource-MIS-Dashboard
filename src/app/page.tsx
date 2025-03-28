@@ -4,7 +4,7 @@ import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
 import { ERP } from "@/lib/types";
 import Loading from "@/components/Loading";
-import ProgressBar from "@/components/ProgressBar";
+// import ProgressBar from "@/components/ProgressBar";
 
 async function getData() {
   const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
@@ -70,32 +70,32 @@ export default function Home() {
     return <Loading />;
   }
 
-  const sheetLinks = [
-    {
-      name: "Rego",
-      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=1844175143&single=true&output=csv`,
-      onlineLink:
-        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=1844175143#gid=1844175143",
-    },
-    {
-      name: "SGS",
-      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=976120039&single=true&output=csv`,
-      onlineLink:
-        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=976120039#gid=976120039",
-    },
-    {
-      name: "Sodexo",
-      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=199610930&single=true&output=csv`,
-      onlineLink:
-        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=199610930#gid=199610930",
-    },
-    {
-      name: "Safety_Outsourcing",
-      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=528451996&single=true&output=csv`,
-      onlineLink:
-        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=528451996#gid=528451996",
-    },
-  ];
+  // const sheetLinks = [
+  //   {
+  //     name: "Rego",
+  //     url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=1844175143&single=true&output=csv`,
+  //     onlineLink:
+  //       "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=1844175143#gid=1844175143",
+  //   },
+  //   {
+  //     name: "SGS",
+  //     url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=976120039&single=true&output=csv`,
+  //     onlineLink:
+  //       "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=976120039#gid=976120039",
+  //   },
+  //   {
+  //     name: "Sodexo",
+  //     url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=199610930&single=true&output=csv`,
+  //     onlineLink:
+  //       "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=199610930#gid=199610930",
+  //   },
+  //   {
+  //     name: "Safety_Outsourcing",
+  //     url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=528451996&single=true&output=csv`,
+  //     onlineLink:
+  //       "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=528451996#gid=528451996",
+  //   },
+  // ];
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
