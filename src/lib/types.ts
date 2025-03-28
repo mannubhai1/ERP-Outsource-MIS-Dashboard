@@ -14,7 +14,8 @@ export interface ERP {
   Agreement: string[];
   Commercial: string[];
   Brochures: string[];
-  RFQs: string[];
+  MOMs: string[];
+  implementationPlan: string[];
   Miscellanous?: string;
 }
 
@@ -34,6 +35,7 @@ export interface ERPInput {
   Agreement: string;
   Commercial: string;
   Brochures: string;
-  RFQs: string;
+  MOMs: string;
+  implementationPlan: string;
   Miscellanous?: string;
 }

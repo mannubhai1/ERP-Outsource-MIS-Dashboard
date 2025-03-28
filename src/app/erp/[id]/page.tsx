@@ -58,7 +58,8 @@ export default async function ERPDetail({
     { label: "Agreement", value: erp.Agreement },
     { label: "Commercial", value: erp.Commercial },
     { label: "Brochures", value: erp.Brochures },
-    { label: "RFQs", value: erp.RFQs },
+    { label: "MOMs", value: erp.MOMs },
+    { label: "Implementation Plan", value: erp.implementationPlan },
   ];
 
   let companyDocsLength: number = 0;
@@ -138,7 +139,8 @@ export default async function ERPDetail({
                             const value = doc.value[idx];
                             if (value === "NA") return null;
                             return (
-                              value !== "NA" && (
+                              value !== "NA" &&
+                              value && (
                                 <a
                                   key={index}
                                   href={value}
