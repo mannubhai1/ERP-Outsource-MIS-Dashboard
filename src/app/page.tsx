@@ -74,23 +74,26 @@ export default function Home() {
     {
       name: "Rego",
       url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=1844175143&single=true&output=csv`,
-      // Percent: 30,
+      onlineLink:
+        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=1844175143#gid=1844175143",
     },
     {
       name: "SGS",
       url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=976120039&single=true&output=csv`,
-      // Percent: 50,
+      onlineLink:
+        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=976120039#gid=976120039",
     },
     {
       name: "Sodexo",
       url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=199610930&single=true&output=csv`,
-
-      // Percent: 70,
+      onlineLink:
+        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=199610930#gid=199610930",
     },
     {
       name: "Safety_Outsourcing",
       url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=528451996&single=true&output=csv`,
-      // Percent: 90,
+      onlineLink:
+        "https://docs.google.com/spreadsheets/d/1bskg7-Ly2MCLOaH0SPUMQh2DKGouHYAIlPEt4Zy1c-A/edit?gid=528451996#gid=528451996",
     },
   ];
 
@@ -140,8 +143,12 @@ export default function Home() {
         {/* Conditional Rendering: Show Progress Bars if no tab is selected */}
         {selectedTab === "" ? (
           <div>
-            {sheetLinks.map(({ name, url }) => (
-              <ProgressBar key={name} sheetName={name} csvUrl={url} />
+            {sheetLinks.map(({ name, url, onlineLink }) => (
+              <a key={name} href={onlineLink} target="_blank" rel="noreferrer">
+                <div className="mb-4">
+                  <ProgressBar sheetName={name} csvUrl={url} />
+                </div>
+              </a>
             ))}
           </div>
         ) : (
@@ -151,13 +158,6 @@ export default function Home() {
             ))}
           </div>
         )}
-
-        {/* ERP Cards Section */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filterData(selectedTab).map((erp) => (
-            <ERPCard key={erp.id} erp={erp} />
-          ))}
-        </div> */}
       </div>
       <Footer />
     </div>

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-// import { CheckCircle } from "lucide-react"; // You can choose any icon you like from Lucide
 import Papa from "papaparse";
+// import { CheckCircle } from "lucide-react"; // You can choose any icon you like from Lucide
 
 interface TickRow {
   Tick?: string; // Adjust to your column name
@@ -100,7 +100,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
       <h3 className="text-lg font-semibold text-gray-700 w-full sm:w-1/4 md:w-1/8">
         {sheetName}
       </h3>
-      <div className="relative w-full sm:w-3/4 md:w-1/2 lg:w-1/3 h-8 bg-gray-200 rounded-full overflow-hidden border-2 border-gray-400">
+      <div className="relative w-full sm:w-3/4 md:w-1/2 lg:w-1/3 h-8 bg-gray-100 rounded-full overflow-hidden border-2 border-gray-400">
         <div
           className={`h-full ${progressBarColor} transition-all ease-in-out duration-200`}
           style={{ width: `${progress}%` }}
