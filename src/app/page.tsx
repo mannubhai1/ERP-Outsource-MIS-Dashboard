@@ -40,7 +40,7 @@ export default function Home() {
 
     const interval = setInterval(() => {
       loadData();
-    }, 5000); // Refresh every 5 minutes
+    }, 60000); // Refresh every 5 minutes
 
     return () => clearInterval(interval);
   }, []);
