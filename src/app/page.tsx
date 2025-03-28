@@ -41,7 +41,7 @@ export default function Home() {
 
     const interval = setInterval(() => {
       loadData();
-    }, 5 * 60 * 1000); // Number of minutes * 60 * 1000
+    }, 30 * 1 * 1000); // Number of minutes * 60 * 1000
 
     return () => clearInterval(interval);
   }, []);
@@ -141,7 +141,7 @@ export default function Home() {
         </div>
 
         {/* Conditional Rendering: Show Progress Bars if no tab is selected */}
-        {selectedTab === "" ? (
+        {/* {selectedTab === "" ? (
           <div>
             {sheetLinks.map(({ name, url, onlineLink }) => (
               <a key={name} href={onlineLink} target="_blank" rel="noreferrer">
@@ -151,13 +151,13 @@ export default function Home() {
               </a>
             ))}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filterData(selectedTab).map((erp) => (
-              <ERPCard key={erp.id} erp={erp} />
-            ))}
-          </div>
-        )}
+        ) : ( */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filterData(selectedTab).map((erp) => (
+            <ERPCard key={erp.id} erp={erp} />
+          ))}
+        </div>
+        {/* )} */}
       </div>
       <Footer />
     </div>

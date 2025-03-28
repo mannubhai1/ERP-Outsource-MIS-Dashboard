@@ -42,7 +42,7 @@ export default function ERPDetailPage() {
       if (id) {
         loadData();
       }
-    }, 5 * 60 * 1000); // Number of minutes * 60 * 1000
+    }, 30 * 1 * 1000); // Number of minutes * 60 * 1000
 
     return () => {
       if (intervalId) clearInterval(intervalId);
