@@ -16,7 +16,7 @@ export interface ERP {
   Brochures: string[];
   MOMs: string[];
   implementationPlan: string[];
-  Miscellanous?: string;
+  Correspondence?: string;
 }
 
 export interface ERPInput {
@@ -37,5 +37,5 @@ export interface ERPInput {
   Brochures: string;
   MOMs: string;
   implementationPlan: string;
-  Miscellanous?: string;
+  Correspondence?: string;
 }

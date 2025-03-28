@@ -55,6 +55,6 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
     Brochures: safeSplit(row.Brochures, /\r?\n/),
     MOMs: safeSplit(row.MOMs, /\r?\n/),
     implementationPlan: safeSplit(row.implementationPlan, /\r?\n/),
-    Miscellanous: safeString(row.Miscellanous),
+    Correspondence: safeString(row.Correspondence),
   }));
 }

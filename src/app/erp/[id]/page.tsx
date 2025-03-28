@@ -56,7 +56,7 @@ export default async function ERPDetail({
   const companyDocs = [
     { label: "NDA", value: erp.NDA },
     { label: "Agreement", value: erp.Agreement },
-    { label: "Commercial", value: erp.Commercial },
+    { label: "Techno Commercial  Offer", value: erp.Commercial },
     { label: "Brochures", value: erp.Brochures },
     { label: "MOMs", value: erp.MOMs },
     { label: "Implementation Plan", value: erp.implementationPlan },
@@ -163,27 +163,27 @@ export default async function ERPDetail({
             )}
           </div>
 
-          {/* Miscellaneous Link Section */}
-          {erp.Miscellanous && erp.Miscellanous !== "" && (
+          {/* Correspondence Link Section */}
+          {erp.Correspondence && erp.Correspondence !== "" && (
             <h2 className="text-2xl font-semibold mb-4">RML DATA</h2>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-            {erp.Miscellanous && erp.Miscellanous !== "" && (
+            {erp.Correspondence && erp.Correspondence !== "" && (
               <div className="relative group w-full h-40">
                 <div className="w-full h-full perspective-1000">
                   <div className="w-full h-full flip-card">
                     <div className="front w-full h-full bg-white border shadow-lg flex justify-center items-center rounded-lg">
                       <p className="text-md md:text-lg lg:text-xl text-center font-semibold">
-                        MISCELLANOUS
+                        Correspondence
                       </p>
                     </div>
                     <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180">
                       <a
-                        href={erp.Miscellanous}
+                        href={erp.Correspondence}
                         target="_blank"
                         className="docs mb-2 text-yellow-300 hover:text-white"
                       >
-                        View Miscellanous
+                        View Correspondence
                       </a>
                     </div>
                   </div>
