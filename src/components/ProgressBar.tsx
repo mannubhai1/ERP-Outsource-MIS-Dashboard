@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+// import { CheckCircle } from "lucide-react"; // You can choose any icon you like from Lucide
 import Papa from "papaparse";
 
 interface TickRow {
@@ -11,11 +12,18 @@ interface ProgressBarProps {
   csvUrl: string;
 }
 
+// Color mapping for different sheets
+const sheetColorMap: Record<string, string> = {
+  Rego: "bg-blue-500",
+  SGS: "bg-green-500",
+  Sodexo: "bg-red-500",
+  Safety_Outsourcing: "bg-yellow-500",
+};
+
 const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Function to fetch and parse the CSV data
   useEffect(() => {
     async function fetchAndParseCsv() {
       setLoading(true);
@@ -27,9 +35,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
         }
         const csvData = await response.text();
 
-        // Parsing CSV using Papaparse
         const parsedResult = Papa.parse<TickRow>(csvData, {
-          header: true, // Treat first row as header row
+          header: true,
           skipEmptyLines: true,
         });
 
@@ -38,12 +45,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
           throw new Error("Error parsing CSV data");
         }
 
-        // Count how many rows have "true" or "✔" in the "Tick" column
         let trueCount = 0;
         let totalCount = 0;
         (parsedResult.data || []).forEach((row) => {
           if (row.Tick !== "") {
-            // Skip empty rows
             const tickValue = row.Tick?.toLowerCase?.();
             if (tickValue === "true") {
               trueCount++;
@@ -54,15 +59,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
           }
         });
 
-        console.log(
-          `Sheet: ${sheetName}, Total: ${totalCount}, True: ${trueCount}`
-        );
+        // console.log(
+        //   `Sheet: ${sheetName}, Total: ${totalCount}, True: ${trueCount}`
+        // );
 
-        // Calculate progress percentage
         const progressPercentage =
           totalCount === 0 ? 0 : (trueCount / totalCount) * 100;
-        setProgress(progressPercentage);
-        // setProgress(80);
+        animateProgress(progressPercentage);
       } catch (error) {
         console.error("Error fetching or parsing CSV:", error);
       } finally {
@@ -73,14 +76,20 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
     fetchAndParseCsv();
   }, [csvUrl, sheetName]);
 
-  // Determine the color based on the progress percentage
-  const getBarColor = (progress: number) => {
-    if (progress <= 20) return "#F87171"; // Red
-    if (progress <= 40) return "#F59E0B"; // Orange
-    if (progress <= 60) return "#FBBF24"; // Yellow
-    if (progress <= 80) return "#4ADE80"; // Green
-    return "#3B82F6"; // Blue
+  const animateProgress = (targetProgress: number) => {
+    let currentProgress = 0;
+    const interval = setInterval(() => {
+      if (currentProgress <= targetProgress) {
+        setProgress(currentProgress);
+        currentProgress++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 30);
   };
+
+  // Get the color for the current sheet, default to gray if not found in the map
+  const progressBarColor = sheetColorMap[sheetName] || "bg-gray-500";
 
   if (loading) {
     return <p>Loading {sheetName} data...</p>;
@@ -88,34 +97,25 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ sheetName, csvUrl }) => {
 
   return (
     <div className="flex items-center space-x-4 mb-6">
-      {/* Sheet name on the left */}
-      <h3 className="text-lg font-semibold text-gray-700">{sheetName}</h3>
-
-      {/* Progress bar on the right */}
-      <div className="relative w-full max-w-md h-8 bg-gray-200 rounded-full overflow-hidden">
-        {/* The progress bar itself */}
+      <h3 className="text-lg font-semibold text-gray-700 w-full sm:w-1/4 md:w-1/8">
+        {sheetName}
+      </h3>
+      <div className="relative w-full sm:w-3/4 md:w-1/2 lg:w-1/3 h-8 bg-gray-200 rounded-full overflow-hidden border-2 border-gray-400">
         <div
-          className="h-full rounded-full"
-          style={{
-            width: `${progress}%`,
-            backgroundColor: getBarColor(progress), // Solid color based on progress
-          }}
-        >
-          {/* Percentage text inside the bar */}
-          <div className="absolute inset-0 flex justify-center items-center text-black font-bold text-sm">
-            {progress.toFixed(1)}%
+          className={`h-full ${progressBarColor} transition-all ease-in-out duration-200`}
+          style={{ width: `${progress}%` }}
+        ></div>
+        {/* Lucide icon at the percentage stop */}
+        {/* {progress > 0 && progress < 100 && (
+          <div
+            className="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${progress}%` }}
+          >
+            <CheckCircle className="text-black w-6 h-6" />
           </div>
-        </div>
-
-        {/* Lines for percentage markers */}
-        <div className="absolute inset-0 flex justify-between items-center px-1">
-          {[20, 40, 60, 80].map((percent) => (
-            <div
-              key={percent}
-              className="w-px h-4 bg-gray-500"
-              style={{ left: `${percent}%` }}
-            />
-          ))}
+        )} */}
+        <div className="absolute inset-0 flex justify-center items-center text-black font-bold text-sm">
+          {progress.toFixed(1)}%
         </div>
       </div>
     </div>

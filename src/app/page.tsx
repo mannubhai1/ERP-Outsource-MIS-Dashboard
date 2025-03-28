@@ -16,7 +16,7 @@ async function getData() {
 }
 
 export default function Home() {
-  const [selectedTab, setSelectedTab] = useState<string>("pipeline");
+  const [selectedTab, setSelectedTab] = useState<string>("");
   const [erps, setErps] = useState<ERP[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -73,12 +73,26 @@ export default function Home() {
   const sheetLinks = [
     {
       name: "Rego",
-      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=217845893&single=true&output=csv`,
+      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=1844175143&single=true&output=csv`,
+      // Percent: 30,
+    },
+    {
+      name: "SGS",
+      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=976120039&single=true&output=csv`,
+      // Percent: 50,
+    },
+    {
+      name: "Sodexo",
+      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=199610930&single=true&output=csv`,
+
+      // Percent: 70,
+    },
+    {
+      name: "Safety_Outsourcing",
+      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=528451996&single=true&output=csv`,
+      // Percent: 90,
     },
   ];
-  sheetLinks.map(({ name, url }) =>
-    console.log("Your details are here", name, url)
-  );
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
