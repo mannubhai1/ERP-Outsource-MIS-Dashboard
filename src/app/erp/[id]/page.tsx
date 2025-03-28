@@ -1,31 +1,64 @@
+"use client";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { ERP } from "@/lib/types";
+import Loading from "@/components/Loading";
 import Footer from "@/components/Footer";
 import BackToHomeButton from "@/components/BackToHome";
 
-// Fetch ERP data
-async function getERP(id: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${baseUrl}/api/erps/${id}`, { cache: "no-store" });
-  if (!res.ok) return null;
-  return res.json();
-}
+export default function ERPDetailPage() {
+  const { id } = useParams() as { id: string };
 
-// ERPDetail Component
-export default async function ERPDetail({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const erp: ERP | null = await getERP(id);
+  const [erp, setErp] = useState<ERP | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const hasExtendedDate: boolean = (erp as ERP).extendedDate !== "";
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout | null = null;
+
+    async function loadData() {
+      setLoading(true);
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+        const res = await fetch(`${baseUrl}/api/erps/${id}`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch ERP detail");
+        }
+        const data = await res.json();
+        setErp(data);
+      } catch (error) {
+        console.error("Error fetching ERP data:", error);
+        setErp(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // Initial load
+    if (id) {
+      loadData();
+    }
+
+    intervalId = setInterval(() => {
+      if (id) {
+        loadData();
+      }
+    }, 5 * 60 * 1000); // Number of minutes * 60 * 1000
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [id]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (!erp) {
     return <div className="p-6">ERP Not Found</div>;
   }
 
-  // Define the first row content in arrays which are targetDate, primaryContacts, and businessUsers
+  const hasExtendedDate = !!erp.extendedDate;
+
   const firstRowData = [
     {
       label: "Target Date",
@@ -41,7 +74,6 @@ export default async function ERPDetail({
     },
   ];
 
-  // Define the second row content in arrays which are currentStatus, nextSteps, and challenges
   const secondRowData = [
     {
       label: "Current Status",
@@ -52,17 +84,16 @@ export default async function ERPDetail({
     { label: "Challenges", value: erp.challenges, style: "bg-red-300" },
   ];
 
-  // Define the company documents for each company
   const companyDocs = [
     { label: "NDA", value: erp.NDA },
     { label: "Agreement", value: erp.Agreement },
-    { label: "Techno Commercial  Offer", value: erp.Commercial },
+    { label: "Techno Commercial Offer", value: erp.Commercial },
     { label: "Brochures", value: erp.Brochures },
     { label: "MOMs", value: erp.MOMs },
     { label: "Implementation Plan", value: erp.implementationPlan },
   ];
 
-  let companyDocsLength: number = 0;
+  let companyDocsLength = 0;
   companyDocs.forEach((doc) => {
     if (doc.value.length > 0) {
       companyDocsLength++;
@@ -78,19 +109,19 @@ export default async function ERPDetail({
             <BackToHomeButton />
           </div>
 
-          {/* First Row: Dynamic */}
+          {/* First Row */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             {firstRowData.map((item, idx) => (
               <div
                 key={idx}
-                className={`p-4 border rounded-lg bg-white shadow-md`}
+                className="p-4 border rounded-lg bg-white shadow-md"
               >
                 <strong>{item.label}:</strong> {item.value}
               </div>
             ))}
           </div>
 
-          {/* Second Row: Dynamic */}
+          {/* Second Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {secondRowData.map((item, idx) => (
               <div
@@ -101,7 +132,7 @@ export default async function ERPDetail({
                   {item.label}:
                 </strong>
                 <ul className="list-disc pl-5 mt-2">
-                  {item.value.map((val, index) => (
+                  {item.value.map((val: string, index: number) => (
                     <li key={index} className="text-black">
                       {val}
                     </li>
@@ -111,7 +142,7 @@ export default async function ERPDetail({
             ))}
           </div>
 
-          {/* Companies Row: Dynamic */}
+          {/* Companies Row */}
           <h2 className="text-2xl font-semibold mb-4">
             VENDORS / PARTNERS / CONTRACTORS DATA
           </h2>
@@ -139,8 +170,8 @@ export default async function ERPDetail({
                             const value = doc.value[idx];
                             if (value === "NA") return null;
                             return (
-                              value !== "NA" &&
-                              value && (
+                              value &&
+                              value !== "NA" && (
                                 <a
                                   key={index}
                                   href={value}
@@ -165,32 +196,32 @@ export default async function ERPDetail({
 
           {/* Correspondence Link Section */}
           {erp.Correspondence && erp.Correspondence !== "" && (
-            <h2 className="text-2xl font-semibold mb-4">RML DATA</h2>
-          )}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-            {erp.Correspondence && erp.Correspondence !== "" && (
-              <div className="relative group w-full h-40">
-                <div className="w-full h-full perspective-1000">
-                  <div className="w-full h-full flip-card">
-                    <div className="front w-full h-full bg-white border shadow-lg flex justify-center items-center rounded-lg">
-                      <p className="text-md md:text-lg lg:text-xl text-center font-semibold">
-                        Correspondence
-                      </p>
-                    </div>
-                    <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180">
-                      <a
-                        href={erp.Correspondence}
-                        target="_blank"
-                        className="docs mb-2 text-yellow-300 hover:text-white"
-                      >
-                        View Correspondence
-                      </a>
+            <>
+              <h2 className="text-2xl font-semibold mb-4">RML DATA</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <div className="relative group w-full h-40">
+                  <div className="w-full h-full perspective-1000">
+                    <div className="w-full h-full flip-card">
+                      <div className="front w-full h-full bg-white border shadow-lg flex justify-center items-center rounded-lg">
+                        <p className="text-md md:text-lg lg:text-xl text-center font-semibold">
+                          Correspondence
+                        </p>
+                      </div>
+                      <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180">
+                        <a
+                          href={erp.Correspondence}
+                          target="_blank"
+                          className="docs mb-2 text-yellow-300 hover:text-white"
+                        >
+                          View Correspondence
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
 

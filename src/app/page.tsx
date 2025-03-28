@@ -4,6 +4,7 @@ import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
 import { ERP } from "@/lib/types";
 import Loading from "@/components/Loading";
+import ProgressBar from "@/components/ProgressBar";
 
 async function getData() {
   const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
@@ -40,7 +41,7 @@ export default function Home() {
 
     const interval = setInterval(() => {
       loadData();
-    }, 5000); // Refresh every 5 minutes
+    }, 5 * 60 * 1000); // Number of minutes * 60 * 1000
 
     return () => clearInterval(interval);
   }, []);
@@ -68,6 +69,16 @@ export default function Home() {
   if (loading) {
     return <Loading />;
   }
+
+  const sheetLinks = [
+    {
+      name: "Rego",
+      url: `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_OUTSOURCING_SHEET_ID}/pub?gid=217845893&single=true&output=csv`,
+    },
+  ];
+  sheetLinks.map(({ name, url }) =>
+    console.log("Your details are here", name, url)
+  );
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
@@ -112,12 +123,27 @@ export default function Home() {
           </button>
         </div>
 
+        {/* Conditional Rendering: Show Progress Bars if no tab is selected */}
+        {selectedTab === "" ? (
+          <div>
+            {sheetLinks.map(({ name, url }) => (
+              <ProgressBar key={name} sheetName={name} csvUrl={url} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filterData(selectedTab).map((erp) => (
+              <ERPCard key={erp.id} erp={erp} />
+            ))}
+          </div>
+        )}
+
         {/* ERP Cards Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filterData(selectedTab).map((erp) => (
             <ERPCard key={erp.id} erp={erp} />
           ))}
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>
