@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Linkedin, Mail } from "lucide-react";
+import { Globe, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -33,6 +33,17 @@ export default function Footer() {
           aria-label="Email"
         >
           <Mail size={20} />
+        </a>
+
+        {/* Portfolio */}
+        <a
+          href="https://portfolio-mannubhai1s-projects.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-blue-400 transition"
+          aria-label="Portfolio"
+        >
+          <Globe size={20} />
         </a>
       </div>
     </footer>
