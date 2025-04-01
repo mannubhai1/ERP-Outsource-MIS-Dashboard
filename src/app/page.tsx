@@ -37,7 +37,6 @@ export default function Home() {
       setSelectedTab(lastVisitedTab);
     }
     async function loadERPData() {
-      setLoading(true);
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL;
         const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
@@ -174,8 +173,9 @@ export default function Home() {
   ];
 
   return (
-    <div className="p-6 min-h-screen bg-gray-100">
+    <div className="p-4 min-h-screen bg-gray-100">
       <div className="mb-15">
+        md:px-4
         <h1
           className="text-2xl md:text-4xl font-bold mb-5 text-black cursor-pointer"
           onClick={() => handleTabChange("")}
@@ -185,7 +185,7 @@ export default function Home() {
         {/* View Dashboard Button: shown only when no tab is selected */}
         {selectedTab !== "" && (
           <button
-            className="bg-blue-500 text-white p-2 rounded mb-4 w-full sm:w-auto"
+            className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl"
             onClick={() => handleTabChange("")}
           >
             View Live Dashboard status
@@ -209,80 +209,87 @@ export default function Home() {
             </button>
           ))}
         </div>
-
         {/*  Dashboard Section */}
         {selectedTab === "" ? (
-          <div className="flex flex-col sm:flex-row gap-8">
-            {/* Pipeline Section */}
-            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
+          <>
+            <button
+              className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl"
+              onClick={() => handleTabChange("")}
+            >
+              View Live Dashboard status
+            </button>
+            <div className="flex flex-col sm:flex-row gap-8">
+              {/* Pipeline Section */}
+              <div className="flex-1 border-2 border-slate-500 p-4 rounded">
+                {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
                 Pipeline
-              </h2> */}
-              <div className="space-y-4">
-                {pipelineProgress.map((item, index) => (
-                  <a
-                    href={item.url}
-                    key={item.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ProgressBar
+                </h2> */}
+                <div className="space-y-4">
+                  {pipelineProgress.map((item, index) => (
+                    <a
+                      href={item.url}
                       key={item.name}
-                      sheetName={item.name}
-                      progress={item.progress}
-                      index={index}
-                    />
-                  </a>
-                ))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ProgressBar
+                        key={item.name}
+                        sheetName={item.name}
+                        progress={item.progress}
+                        index={index}
+                      />
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-            {/* Onboarded Section */}
-            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
+              {/* Onboarded Section */}
+              <div className="flex-1 border-2 border-slate-500 p-4 rounded">
+                {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
                 Onboarded
               </h2> */}
-              <div className="space-y-4">
-                {onboardedProgress.map((item, index) => (
-                  <a
-                    href={item.url}
-                    key={item.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ProgressBar
+                <div className="space-y-4">
+                  {onboardedProgress.map((item, index) => (
+                    <a
+                      href={item.url}
                       key={item.name}
-                      sheetName={item.name}
-                      progress={item.progress}
-                      index={index}
-                    />
-                  </a>
-                ))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ProgressBar
+                        key={item.name}
+                        sheetName={item.name}
+                        progress={item.progress}
+                        index={index}
+                      />
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-            {/* Outsourcing Section */}
-            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
+              {/* Outsourcing Section */}
+              <div className="flex-1 border-2 border-slate-500 p-4 rounded">
+                {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
                 Outsourcing
               </h2> */}
-              <div className="space-y-4">
-                {outsourcingProgress.map((item, index) => (
-                  <a
-                    href={item.url}
-                    key={item.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ProgressBar
+                <div className="space-y-4">
+                  {outsourcingProgress.map((item, index) => (
+                    <a
+                      href={item.url}
                       key={item.name}
-                      sheetName={item.name}
-                      progress={item.progress}
-                      index={index}
-                    />
-                  </a>
-                ))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ProgressBar
+                        key={item.name}
+                        sheetName={item.name}
+                        progress={item.progress}
+                        index={index}
+                      />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          </>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filterData(selectedTab).map((erp) => (
