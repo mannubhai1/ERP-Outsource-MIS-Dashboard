@@ -5,10 +5,10 @@ import { ERP } from "@/lib/types";
 import Loading from "@/components/Loading";
 import Footer from "@/components/Footer";
 import BackToHomeButton from "@/components/BackToHome";
+import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
 
 export default function ERPDetailPage() {
   const { id } = useParams() as { id: string };
-
   const [erp, setErp] = useState<ERP | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +42,7 @@ export default function ERPDetailPage() {
       if (id) {
         loadData();
       }
-    }, 30 * 1 * 1000); // Number of minutes * 60 * 1000
+    }, DATA_REFRESH_INTERVAL);
 
     return () => {
       if (intervalId) clearInterval(intervalId);
