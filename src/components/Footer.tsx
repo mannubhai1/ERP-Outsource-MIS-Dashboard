@@ -8,7 +8,9 @@ export default function Footer() {
     <footer className="fixed bottom-0 left-0 w-full bg-gray-800 text-white py-3 flex justify-center items-center z-50 space-y-2 space-x-4">
       <p className="text-sm md:text-base lg:text-lg font-semibold tracking-wide">
         Developed by&nbsp;
-        <span className="hover:underline transition">Manurbhav Arya</span>
+        <span className="hover:underline transition">
+          Manurbhav Arya & Team
+        </span>
       </p>
 
       {/* Icons container */}
