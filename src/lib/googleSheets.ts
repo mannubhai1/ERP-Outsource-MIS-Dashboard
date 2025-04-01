@@ -1,7 +1,7 @@
 import Papa from "papaparse";
 import { ERP, ERPInput } from "@/lib/types";
 
-const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/e/${process.env.SHEET_ID}/pub?gid=0&single=true&output=csv`;
+const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/e/${process.env.MAIN_SHEET_ID}/pub?gid=0&single=true&output=csv`;
 
 const safeSplit = (
   value: string | undefined,
@@ -41,6 +41,7 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
       row.companies?.replace(/[\r\n]+/g, "/").replace(/\s*\/\s*/g, "/"),
       "/"
     ),
+    lastUpdated: safeString(row.lastUpdated),
     status: safeString(row.status),
     currentStatus: safeSplit(row.currentStatus, /\r?\n/),
     nextSteps: safeSplit(row.nextSteps, /\r?\n/),

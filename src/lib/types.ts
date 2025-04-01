@@ -2,6 +2,7 @@ export interface ERP {
   id: number;
   name: string;
   companies: string[];
+  lastUpdated: string;
   status: string;
   currentStatus: string[];
   nextSteps: string[];
@@ -23,6 +24,7 @@ export interface ERPInput {
   id: number;
   name: string;
   companies: string;
+  lastUpdated: string;
   status: string;
   currentStatus: string;
   nextSteps: string;
