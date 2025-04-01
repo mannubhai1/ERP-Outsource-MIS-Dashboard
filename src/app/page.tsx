@@ -173,9 +173,8 @@ export default function Home() {
   ];
 
   return (
-    <div className="p-4 min-h-screen bg-gray-100">
+    <div className="p-4 min-h-screen bg-[#f8f9fa] text-[#212529]">
       <div className="mb-15">
-        md:px-4
         <h1
           className="text-2xl md:text-4xl font-bold mb-5 text-black cursor-pointer"
           onClick={() => handleTabChange("")}
@@ -185,7 +184,7 @@ export default function Home() {
         {/* View Dashboard Button: shown only when no tab is selected */}
         {selectedTab !== "" && (
           <button
-            className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl"
+            className="bg-[#0d6efd] text-[#ffffff] font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-[#0b5ed7]"
             onClick={() => handleTabChange("")}
           >
             View Live Dashboard status
@@ -193,7 +192,7 @@ export default function Home() {
         )}
         {selectedTab === "" && (
           <button
-            className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl"
+            className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-[#0b5ed7]"
             onClick={() => handleTabChange("pipeline")}
           >
             View ERPs/Contracts
@@ -204,7 +203,7 @@ export default function Home() {
           {statuses.map((status) => (
             <button
               key={status.key}
-              className={`text-lg md:text-2xl font-bold rounded p-2 ${
+              className={`text-lg md:text-2xl font-bold rounded p-2 hover:bg-[#0b5ed7] ${
                 selectedTab === ""
                   ? "bg-slate-500 text-white"
                   : selectedTab === status.key
@@ -291,7 +290,7 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-stretch">
             {filterData(selectedTab).map((erp) => (
               <ERPCard key={erp.id} erp={erp} />
             ))}
