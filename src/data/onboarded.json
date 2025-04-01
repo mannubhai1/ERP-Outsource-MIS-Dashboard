@@ -7,16 +7,16 @@
   {
     "name": "HRMS - Workday(Deloitte)",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=834034848&single=true&output=csv",
-    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=834034848"
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=834034848#gid=834034848"
   },
   {
     "name": "TMS - Fretron",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1160461277&single=true&output=csv",
-    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=1160461277"
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=1160461277#gid=1160461277"
   },
   {
     "name": "FDMS - MOBA",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1752739443&single=true&output=csv",
-    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=1752739443"
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=1752739443#gid=1752739443"
   }
 ]
