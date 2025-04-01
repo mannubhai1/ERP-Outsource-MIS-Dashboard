@@ -191,6 +191,14 @@ export default function Home() {
             View Live Dashboard status
           </button>
         )}
+        {selectedTab === "" && (
+          <button
+            className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl"
+            onClick={() => handleTabChange("pipeline")}
+          >
+            View ERPs/Contracts
+          </button>
+        )}
         {/* Tabs */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {statuses.map((status) => (
@@ -211,85 +219,77 @@ export default function Home() {
         </div>
         {/*  Dashboard Section */}
         {selectedTab === "" ? (
-          <>
-            <button
-              className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl"
-              onClick={() => handleTabChange("")}
-            >
-              View Live Dashboard status
-            </button>
-            <div className="flex flex-col sm:flex-row gap-8">
-              {/* Pipeline Section */}
-              <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-                {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
+          <div className="flex flex-col sm:flex-row gap-8">
+            {/* Pipeline Section */}
+            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
+              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
                 Pipeline
                 </h2> */}
-                <div className="space-y-4">
-                  {pipelineProgress.map((item, index) => (
-                    <a
-                      href={item.url}
+              <div className="space-y-4">
+                {pipelineProgress.map((item, index) => (
+                  <a
+                    href={item.url}
+                    key={item.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ProgressBar
                       key={item.name}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ProgressBar
-                        key={item.name}
-                        sheetName={item.name}
-                        progress={item.progress}
-                        index={index}
-                      />
-                    </a>
-                  ))}
-                </div>
-              </div>
-              {/* Onboarded Section */}
-              <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-                {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                Onboarded
-              </h2> */}
-                <div className="space-y-4">
-                  {onboardedProgress.map((item, index) => (
-                    <a
-                      href={item.url}
-                      key={item.name}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ProgressBar
-                        key={item.name}
-                        sheetName={item.name}
-                        progress={item.progress}
-                        index={index}
-                      />
-                    </a>
-                  ))}
-                </div>
-              </div>
-              {/* Outsourcing Section */}
-              <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-                {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                Outsourcing
-              </h2> */}
-                <div className="space-y-4">
-                  {outsourcingProgress.map((item, index) => (
-                    <a
-                      href={item.url}
-                      key={item.name}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ProgressBar
-                        key={item.name}
-                        sheetName={item.name}
-                        progress={item.progress}
-                        index={index}
-                      />
-                    </a>
-                  ))}
-                </div>
+                      sheetName={item.name}
+                      progress={item.progress}
+                      index={index}
+                    />
+                  </a>
+                ))}
               </div>
             </div>
-          </>
+            {/* Onboarded Section */}
+            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
+              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
+                Onboarded
+              </h2> */}
+              <div className="space-y-4">
+                {onboardedProgress.map((item, index) => (
+                  <a
+                    href={item.url}
+                    key={item.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ProgressBar
+                      key={item.name}
+                      sheetName={item.name}
+                      progress={item.progress}
+                      index={index}
+                    />
+                  </a>
+                ))}
+              </div>
+            </div>
+            {/* Outsourcing Section */}
+            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
+              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
+                Outsourcing
+              </h2> */}
+              <div className="space-y-4">
+                {outsourcingProgress.map((item, index) => (
+                  <a
+                    href={item.url}
+                    key={item.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ProgressBar
+                      key={item.name}
+                      sheetName={item.name}
+                      progress={item.progress}
+                      index={index}
+                    />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filterData(selectedTab).map((erp) => (

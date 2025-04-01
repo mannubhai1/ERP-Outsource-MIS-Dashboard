@@ -16,7 +16,7 @@ export default function ERPDetailPage() {
     let intervalId: NodeJS.Timeout | null = null;
 
     async function loadData() {
-      setLoading(true);
+      // setLoading(true);
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL;
         const res = await fetch(`${baseUrl}/api/erps/${id}`);
