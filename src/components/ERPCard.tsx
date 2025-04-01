@@ -16,7 +16,7 @@ export default function ERPCard({ erp }: { erp: ERP }) {
         and rely on a parent container (grid or flex with items-stretch) 
         to enforce consistent heights across cards.
       */}
-      <div className="flex flex-col h-full space-y-6 bg-white rounded-xl shadow-md p-4 hover:shadow-lg cursor-pointer hover:bg-green-200">
+      <div className="flex flex-col h-full space-y-6 bg-gray-50 rounded-xl shadow-md p-4 hover:shadow-lg cursor-pointer hover:bg-green-100">
         <h3 className="text-xl text-black font-semibold">
           {erp.name.toUpperCase()}
         </h3>

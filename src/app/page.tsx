@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
-import ProgressBar from "@/components/ProgressBar";
+import DashboardSection from "@/components/DashboardSection";
 import {
   calculatePercentages,
   SheetPercentage,
@@ -181,10 +181,10 @@ export default function Home() {
         >
           ERP / OUTSOURCING DASHBOARD
         </h1>
-        {/* View Dashboard Button: shown only when no tab is selected */}
+        {/* View Dashboard Button: shown only when a tab is selected */}
         {selectedTab !== "" && (
           <button
-            className="bg-[#0d6efd] text-[#ffffff] font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-[#0b5ed7]"
+            className="bg-blue-400 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
             onClick={() => handleTabChange("")}
           >
             View Live Dashboard status
@@ -192,7 +192,7 @@ export default function Home() {
         )}
         {selectedTab === "" && (
           <button
-            className="bg-blue-500 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-[#0b5ed7]"
+            className="bg-blue-400 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
             onClick={() => handleTabChange("pipeline")}
           >
             View ERPs/Contracts
@@ -203,11 +203,11 @@ export default function Home() {
           {statuses.map((status) => (
             <button
               key={status.key}
-              className={`text-lg md:text-2xl font-bold rounded p-2 hover:bg-[#0b5ed7] ${
+              className={`text-lg md:text-2xl font-bold rounded p-2 hover:bg-blue-300 ${
                 selectedTab === ""
-                  ? "bg-slate-500 text-white"
+                  ? "bg-gray-200 text-black"
                   : selectedTab === status.key
-                  ? "bg-blue-500 text-white"
+                  ? "bg-blue-400 text-white"
                   : "bg-gray-200 text-black"
               }`}
               onClick={() => handleTabChange(status.key)}
@@ -216,79 +216,13 @@ export default function Home() {
             </button>
           ))}
         </div>
-        {/*  Dashboard Section */}
+        {/* Dashboard Section or ERP Cards */}
         {selectedTab === "" ? (
-          <div className="flex flex-col sm:flex-row gap-8">
-            {/* Pipeline Section */}
-            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                Pipeline
-                </h2> */}
-              <div className="space-y-4">
-                {pipelineProgress.map((item, index) => (
-                  <a
-                    href={item.url}
-                    key={item.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ProgressBar
-                      key={item.name}
-                      sheetName={item.name}
-                      progress={item.progress}
-                      index={index}
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-            {/* Onboarded Section */}
-            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                Onboarded
-              </h2> */}
-              <div className="space-y-4">
-                {onboardedProgress.map((item, index) => (
-                  <a
-                    href={item.url}
-                    key={item.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ProgressBar
-                      key={item.name}
-                      sheetName={item.name}
-                      progress={item.progress}
-                      index={index}
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-            {/* Outsourcing Section */}
-            <div className="flex-1 border-2 border-slate-500 p-4 rounded">
-              {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                Outsourcing
-              </h2> */}
-              <div className="space-y-4">
-                {outsourcingProgress.map((item, index) => (
-                  <a
-                    href={item.url}
-                    key={item.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ProgressBar
-                      key={item.name}
-                      sheetName={item.name}
-                      progress={item.progress}
-                      index={index}
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+          <DashboardSection
+            pipelineProgress={pipelineProgress}
+            onboardedProgress={onboardedProgress}
+            outsourcingProgress={outsourcingProgress}
+          />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-stretch">
             {filterData(selectedTab).map((erp) => (
