@@ -1,16 +1,16 @@
 [
   {
-    "name": "QMS",
+    "name": "QMS-Biomass",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=976120039&single=true&output=csv",
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=976120039"
   },
   {
-    "name": "House Keeping",
+    "name": "House Keeping - Sodexo (RML1)",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=199610930&single=true&output=csv",
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=199610930"
   },
   {
-    "name": "Plant Safety",
+    "name": "Plant Safety - SGS (RML6)",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=528451996&single=true&output=csv",
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=528451996"
   },
@@ -20,12 +20,12 @@
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=96377568"
   },
   {
-    "name": "Transport Management",
+    "name": "Transport Management - REGO",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1844175143&single=true&output=csv",
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=1844175143"
   },
   {
-    "name": "Payroll",
+    "name": "Payroll - Protiviti",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=124701270&single=true&output=csv",
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=124701270"
   }
