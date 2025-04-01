@@ -1,0 +1,22 @@
+[
+  {
+    "name": "CRM",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=479054497&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=479054497"
+  },
+  {
+    "name": "Workday",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=834034848&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=834034848"
+  },
+  {
+    "name": "TMS",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1160461277&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=1160461277"
+  },
+  {
+    "name": "FDMS",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1752739443&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=1752739443"
+  }
+]

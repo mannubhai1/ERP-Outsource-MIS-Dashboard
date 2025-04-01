@@ -1,0 +1,7 @@
+[
+  {
+    "name": "Pipeline Data",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_PIPELINE_CSV_ID/pub?gid=0&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_PIPELINE_LIVE_ID/edit?gid=0#gid=0"
+  }
+]

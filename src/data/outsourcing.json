@@ -1,0 +1,32 @@
+[
+  {
+    "name": "QMS",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=976120039&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=976120039"
+  },
+  {
+    "name": "House Keeping",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=199610930&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=199610930"
+  },
+  {
+    "name": "Plant Safety",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=528451996&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=528451996"
+  },
+  {
+    "name": "CLMS",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=96377568&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=96377568"
+  },
+  {
+    "name": "Transport Management",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1844175143&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=1844175143"
+  },
+  {
+    "name": "Payroll",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=124701270&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=479054497#gid=124701270"
+  }
+]
