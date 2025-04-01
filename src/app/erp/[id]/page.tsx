@@ -104,9 +104,17 @@ export default function ERPDetailPage() {
     <div className="flex flex-col min-h-screen">
       <div className="flex-grow p-6 text-black bg-gray-100">
         <div className="mb-15">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">{erp.name.toUpperCase()}</h1>
-            <BackToHomeButton />
+          <div className="flex flex-col mb-6 space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
+            <h1 className="w-full text-2xl font-bold text-center sm:text-left md:text-3xl">{erp.name.toUpperCase()}</h1>
+            <div className="flex flex-col w-full space-y-3 sm:w-auto sm:flex-row sm:items-center sm:space-y-0 sm:space-x-6">
+              <div className="flex items-center justify-center w-full text-sm text-gray-600 sm:justify-start">
+                <span className="mr-2 font-medium">Last Update:</span>
+                <span className={`px-2 py-1 rounded ${erp?.lastUpdated === '' ? 'bg-gray-200 text-gray-500 italic' : 'bg-gray-100'}`}>
+                  {erp?.lastUpdated || 'Not available'}
+                </span>
+              </div>
+              <BackToHomeButton/>
+            </div>
           </div>
 
           {/* First Row */}
@@ -160,11 +168,10 @@ export default function ERPDetailPage() {
                       <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180">
                         {/* Render the company documents dynamically */}
                         <div
-                          className={`${
-                            companyDocsLength === 1
-                              ? "grid grid-cols-1 gap-4 justify-items-center"
-                              : "grid grid-cols-2 gap-4 justify-items-center"
-                          } w-full`}
+                          className={`${companyDocsLength === 1
+                            ? "grid grid-cols-1 gap-4 justify-items-center"
+                            : "grid grid-cols-2 gap-4 justify-items-center"
+                            } w-full`}
                         >
                           {companyDocs.map((doc, index) => {
                             const value = doc.value[idx];
