@@ -165,7 +165,10 @@ export default function ERPDetailPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center mb-4">
             {erp.companies && erp.companies.length > 0 ? (
               erp.companies.map((company, idx) => (
-                <div key={idx} className="relative group w-full h-40">
+                <div
+                  key={idx}
+                  className="relative group w-full h-40 overflow-hidden"
+                >
                   <div className="w-full h-full perspective-1000">
                     <div className="w-full h-full flip-card">
                       <div className="front w-full h-full bg-white border shadow-lg flex justify-center items-center rounded-lg">
@@ -173,26 +176,25 @@ export default function ERPDetailPage() {
                           {company.toUpperCase()}
                         </p>
                       </div>
-                      <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180">
+                      <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-2 sm:p-4 overflow-y-auto transform rotateY-180">
                         {/* Render the company documents dynamically */}
                         <div
                           className={`${
                             companyDocsLength === 1
-                              ? "grid grid-cols-1 gap-4 justify-items-center"
-                              : "grid grid-cols-2 gap-4 justify-items-center"
+                              ? "grid grid-cols-1 gap-2 justify-items-center"
+                              : "grid grid-cols-2 gap-2 gap-x-4 justify-center lg:justify-items-center"
                           } w-full`}
                         >
                           {companyDocs.map((doc, index) => {
                             const value = doc.value[idx];
                             if (value === "NA") return null;
                             return (
-                              value &&
-                              value !== "NA" && (
+                              value && (
                                 <a
                                   key={index}
                                   href={value}
                                   target="_blank"
-                                  className="docs mb-2 text-yellow-300 hover:text-white"
+                                  className="docs mb-2 text-xs sm:text-sm text-yellow-300 hover:text-white break-words"
                                 >
                                   {doc.label}
                                 </a>
@@ -210,27 +212,59 @@ export default function ERPDetailPage() {
             )}
           </div>
 
-          {/* Correspondence Link Section */}
-          {erp.Correspondence && erp.Correspondence !== "" && (
+          {/* RML DATA Section */}
+          {(erp.Correspondence !== "" ||
+            erp.Milestones !== "" ||
+            erp.Comparative !== "" ||
+            erp.Miscellaneous !== "") && (
             <>
               <h2 className="text-2xl font-semibold mb-4">RML DATA</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                <div className="relative group w-full h-40">
+                <div className="relative group w-full h-40 overflow-hidden">
                   <div className="w-full h-full perspective-1000">
                     <div className="w-full h-full flip-card">
                       <div className="front w-full h-full bg-white border shadow-lg flex justify-center items-center rounded-lg">
                         <p className="text-md md:text-lg lg:text-xl text-center font-semibold">
-                          Correspondence
+                          RML DATA
                         </p>
                       </div>
-                      <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180">
-                        <a
-                          href={erp.Correspondence}
-                          target="_blank"
-                          className="docs mb-2 text-yellow-300 hover:text-white"
-                        >
-                          View Correspondence
-                        </a>
+                      <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180 overflow-y-auto">
+                        {erp.Correspondence !== "" && (
+                          <a
+                            href={erp.Correspondence}
+                            target="_blank"
+                            className="docs mb-2 text-xs sm:text-lg text-yellow-300 hover:text-white break-words"
+                          >
+                            Correspondence
+                          </a>
+                        )}
+                        {erp.Milestones !== "" && (
+                          <a
+                            href={erp.Milestones}
+                            target="_blank"
+                            className="docs mb-2 text-xs sm:text-md text-yellow-300 hover:text-white break-words"
+                          >
+                            Milestones
+                          </a>
+                        )}
+                        {erp.Comparative !== "" && (
+                          <a
+                            href={erp.Comparative}
+                            target="_blank"
+                            className="docs mb-2 text-xs sm:text-md text-yellow-300 hover:text-white break-words"
+                          >
+                            Comparative
+                          </a>
+                        )}
+                        {erp.Miscellaneous !== "" && (
+                          <a
+                            href={erp.Miscellaneous}
+                            target="_blank"
+                            className="docs mb-2 text-xs sm:text-md text-yellow-300 hover:text-white break-words"
+                          >
+                            Miscellaneous
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
