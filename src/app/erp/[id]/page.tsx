@@ -57,7 +57,9 @@ export default function ERPDetailPage() {
     return <div className="p-6">ERP Not Found</div>;
   }
 
-  const hasExtendedDate = !!erp.extendedDate;
+  const hasExtendedDate = erp.extendedDate && erp.extendedDate.length > 0;
+  // const hasExtendedDate = !erp.extendedDate;
+  console.log(`id : ${id}, ${hasExtendedDate}`);
 
   const firstRowData = [
     {
@@ -66,11 +68,15 @@ export default function ERPDetailPage() {
     },
     {
       label: "Primary Contacts",
-      value: erp.primaryContacts.join(", "),
+      value: erp.primaryContacts.join(", ").length
+        ? erp.primaryContacts.join(", ")
+        : "No primary contacts assigned",
     },
     {
       label: "Business Users",
-      value: erp.businessUsers.join(", "),
+      value: erp.businessUsers.join(", ").length
+        ? erp.businessUsers.join(", ")
+        : "No business users assigned",
     },
   ];
 
@@ -81,7 +87,14 @@ export default function ERPDetailPage() {
       style: "bg-blue-200",
     },
     { label: "Next Steps", value: erp.nextSteps, style: "bg-yellow-200" },
-    { label: "Challenges", value: erp.challenges, style: "bg-red-300" },
+    {
+      label: "Challenges",
+      value:
+        erp.challenges.length == 0
+          ? ["No challenges reported"]
+          : erp.challenges,
+      style: "bg-red-300",
+    },
   ];
 
   const companyDocs = [
@@ -99,6 +112,25 @@ export default function ERPDetailPage() {
       companyDocsLength++;
     }
   });
+
+  const rmlItems = [
+    { label: "Correspondence", value: erp.Correspondence },
+    { label: "Milestones", value: erp.Milestones },
+    { label: "Comparative", value: erp.Comparative },
+    { label: "Miscellaneous", value: erp.Miscellaneous },
+  ];
+
+  const filteredRmlItems = rmlItems.filter((item) => item.value.trim() !== "");
+
+  let rmlGridClass = "";
+  if (filteredRmlItems.length === 1) {
+    rmlGridClass = "grid grid-cols-1 justify-items-center";
+  } else if (filteredRmlItems.length === 4) {
+    rmlGridClass = "grid grid-cols-2 gap-2 justify-items-center";
+  } else {
+    // For 2 or 3 items, you might want a single column or adjust as needed
+    rmlGridClass = "grid grid-cols-1 gap-2 justify-items-center";
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -194,7 +226,7 @@ export default function ERPDetailPage() {
                                   key={index}
                                   href={value}
                                   target="_blank"
-                                  className="docs mb-2 text-xs sm:text-sm text-yellow-300 hover:text-white break-words"
+                                  className="docs mb-2 text-xs sm:text-base text-yellow-300 hover:text-white break-words"
                                 >
                                   {doc.label}
                                 </a>
@@ -213,10 +245,7 @@ export default function ERPDetailPage() {
           </div>
 
           {/* RML DATA Section */}
-          {(erp.Correspondence !== "" ||
-            erp.Milestones !== "" ||
-            erp.Comparative !== "" ||
-            erp.Miscellaneous !== "") && (
+          {filteredRmlItems.length > 0 && (
             <>
               <h2 className="text-2xl font-semibold mb-4">RML DATA</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
@@ -229,42 +258,18 @@ export default function ERPDetailPage() {
                         </p>
                       </div>
                       <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180 overflow-y-auto">
-                        {erp.Correspondence !== "" && (
-                          <a
-                            href={erp.Correspondence}
-                            target="_blank"
-                            className="docs mb-2 text-xs sm:text-lg text-yellow-300 hover:text-white break-words"
-                          >
-                            Correspondence
-                          </a>
-                        )}
-                        {erp.Milestones !== "" && (
-                          <a
-                            href={erp.Milestones}
-                            target="_blank"
-                            className="docs mb-2 text-xs sm:text-md text-yellow-300 hover:text-white break-words"
-                          >
-                            Milestones
-                          </a>
-                        )}
-                        {erp.Comparative !== "" && (
-                          <a
-                            href={erp.Comparative}
-                            target="_blank"
-                            className="docs mb-2 text-xs sm:text-md text-yellow-300 hover:text-white break-words"
-                          >
-                            Comparative
-                          </a>
-                        )}
-                        {erp.Miscellaneous !== "" && (
-                          <a
-                            href={erp.Miscellaneous}
-                            target="_blank"
-                            className="docs mb-2 text-xs sm:text-md text-yellow-300 hover:text-white break-words"
-                          >
-                            Miscellaneous
-                          </a>
-                        )}
+                        <div className={`${rmlGridClass} w-full`}>
+                          {filteredRmlItems.map((item, index) => (
+                            <a
+                              key={index}
+                              href={item.value}
+                              target="_blank"
+                              className="docs mb-2 text-xs sm:text-base text-yellow-300 hover:text-white break-words"
+                            >
+                              {item.label}
+                            </a>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
