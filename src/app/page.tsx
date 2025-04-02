@@ -177,7 +177,13 @@ export default function Home() {
       <div className="mb-15">
         <h1
           className="text-2xl md:text-4xl font-bold mb-5 text-black cursor-pointer"
-          onClick={() => handleTabChange("")}
+          onClick={() => {
+            if (selectedTab === "") {
+              handleTabChange("pipeline");
+            } else {
+              handleTabChange("");
+            }
+          }}
         >
           ERP / OUTSOURCING DASHBOARD
         </h1>
