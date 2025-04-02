@@ -58,8 +58,8 @@ export default function ERPDetailPage() {
   }
 
   const hasExtendedDate = erp.extendedDate && erp.extendedDate.length > 0;
-  // const hasExtendedDate = !erp.extendedDate;
-  console.log(`id : ${id}, ${hasExtendedDate}`);
+  // const hasExtendedDate = !!erp.extendedDate;
+  // console.log(`id : ${id}, ${hasExtendedDate}`);
 
   const firstRowData = [
     {

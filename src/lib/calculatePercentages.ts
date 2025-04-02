@@ -1,22 +1,5 @@
 import Papa from "papaparse";
-
-export interface CsvSheet {
-  name: string;
-  csvUrl: string;
-  url: string;
-}
-
-export interface SheetPercentage {
-  name: string;
-  progress: number;
-  url: string;
-}
-
-export interface PipelineProgress {
-  erpName: string;
-  progress: number;
-}
-
+import { SheetPercentage, CsvSheet, PipelineProgress } from "./types";
 /**
  * Calculates progress percentages for an array of CSV sheets.
  *

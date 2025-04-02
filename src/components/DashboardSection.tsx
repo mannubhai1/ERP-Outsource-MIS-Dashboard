@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import ProgressBar from "@/components/ProgressBar";
-import { SheetPercentage } from "@/lib/calculatePercentages";
+import { SheetPercentage } from "@/lib/types";
 
 interface DashboardSectionProps {
   pipelineProgress: SheetPercentage[];

@@ -47,3 +47,20 @@ export interface ERPInput {
   Comparative: string;
   Miscellaneous: string;
 }
+
+export interface SheetPercentage {
+  name: string;
+  progress: number;
+  url: string;
+}
+
+export interface PipelineProgress {
+  erpName: string;
+  progress: number;
+}
+
+export interface CsvSheet {
+  name: string;
+  csvUrl: string;
+  url: string;
+}

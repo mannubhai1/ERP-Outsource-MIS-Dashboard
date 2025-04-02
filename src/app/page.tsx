@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
+
 import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
 import DashboardSection from "@/components/DashboardSection";
-import {
-  calculatePercentages,
-  SheetPercentage,
-} from "@/lib/calculatePercentages";
-import { ERP } from "@/lib/types";
+
+import { calculatePercentages } from "@/lib/calculatePercentages";
+import { ERP, SheetPercentage } from "@/lib/types";
 import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
+
 import pipelineData from "@/data/pipeline.json";
 import onboardedData from "@/data/onboarded.json";
 import outsourcingData from "@/data/outsourcing.json";
