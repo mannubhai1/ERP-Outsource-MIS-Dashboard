@@ -213,8 +213,8 @@ export default function ERPDetailPage() {
                         <div
                           className={`${
                             companyDocsLength === 1
-                              ? "grid grid-cols-1 gap-2 justify-items-center"
-                              : "grid grid-cols-2 gap-2 gap-x-4 justify-center lg:justify-items-center"
+                              ? "grid grid-cols-1 gap-2 justify-items-center pointer-events-auto"
+                              : "grid grid-cols-2 gap-2 gap-x-4 justify-center lg:justify-items-center pointer-events-auto"
                           } w-full`}
                         >
                           {companyDocs.map((doc, index) => {
@@ -258,7 +258,9 @@ export default function ERPDetailPage() {
                         </p>
                       </div>
                       <div className="back flex flex-col justify-center items-center bg-gray-800 border rounded-lg p-2 sm:p-4 overflow-y-auto">
-                        <div className={`${rmlGridClass} w-full`}>
+                        <div
+                          className={`${rmlGridClass} w-full pointer-events-auto`}
+                        >
                           {filteredRmlItems.map((item, index) => (
                             <a
                               key={index}
