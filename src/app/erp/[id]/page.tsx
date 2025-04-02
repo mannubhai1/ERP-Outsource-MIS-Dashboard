@@ -201,14 +201,14 @@ export default function ERPDetailPage() {
                   key={idx}
                   className="relative group w-full h-40 overflow-hidden"
                 >
-                  <div className="w-full h-full perspective-1000">
-                    <div className="w-full h-full flip-card">
-                      <div className="front w-full h-full bg-white border shadow-lg flex justify-center items-center rounded-lg">
+                  <div className="flip-card relative w-full h-full">
+                    <div className="flip-card-inner w-full h-full">
+                      <div className="front flex justify-center items-center bg-white border shadow-lg rounded-lg">
                         <p className="text-md md:text-lg lg:text-xl text-center font-semibold">
                           {company.toUpperCase()}
                         </p>
                       </div>
-                      <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-2 sm:p-4 overflow-y-auto transform rotateY-180">
+                      <div className="back w-full h-full bg-gray-800 text-white borderflex flex-col justify-center items-center rounded-lg p-2 sm:p-4 overflow-y-auto transform rotateY-180">
                         {/* Render the company documents dynamically */}
                         <div
                           className={`${
