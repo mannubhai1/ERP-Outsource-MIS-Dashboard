@@ -10,9 +10,14 @@
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=834034848#gid=834034848"
   },
   {
-    "name": "TMS - Fretron",
+    "name": "TMS - Fretron (Inbound)",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1160461277&single=true&output=csv",
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=1160461277#gid=1160461277"
+  },
+  {
+    "name": "TMS - Fretron (Outbound)",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=1722331483&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=1722331483#gid=1722331483"
   },
   {
     "name": "FDMS - MOBA",
