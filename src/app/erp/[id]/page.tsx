@@ -250,14 +250,14 @@ export default function ERPDetailPage() {
               <h2 className="text-2xl font-semibold mb-4">RML DATA</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 <div className="relative group w-full h-40 overflow-hidden">
-                  <div className="w-full h-full perspective-1000">
-                    <div className="w-full h-full flip-card">
-                      <div className="front w-full h-full bg-white border shadow-lg flex justify-center items-center rounded-lg">
+                  <div className="flip-card relative w-full h-full">
+                    <div className="flip-card-inner w-full h-full">
+                      <div className="front flex justify-center items-center bg-white border shadow-lg rounded-lg">
                         <p className="text-md md:text-lg lg:text-xl text-center font-semibold">
                           RML DATA
                         </p>
                       </div>
-                      <div className="back w-full h-full bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg p-4 transform rotateY-180 overflow-y-auto">
+                      <div className="back flex flex-col justify-center items-center bg-gray-800 border rounded-lg p-2 sm:p-4 overflow-y-auto">
                         <div className={`${rmlGridClass} w-full`}>
                           {filteredRmlItems.map((item, index) => (
                             <a
