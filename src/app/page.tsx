@@ -5,6 +5,7 @@ import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
 import DashboardSection from "@/components/DashboardSection";
+import FinancialDashboard from "@/components/FinancialDashboard";
 
 import { calculatePercentages } from "@/lib/calculatePercentages";
 import { ERP, SheetPercentage } from "@/lib/types";
@@ -13,10 +14,15 @@ import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
 import pipelineData from "@/data/pipeline.json";
 import onboardedData from "@/data/onboarded.json";
 import outsourcingData from "@/data/outsourcing.json";
-import FinancialDashboard from "@/components/FinancialDashboard";
 
 export default function Home() {
-  const [selectedTab, setSelectedTab] = useState<string>("");
+  // Default to "dashboard" if localStorage is not set.
+  const [selectedTab, setSelectedTab] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("selectedTab") || "dashboard";
+    }
+    return "dashboard";
+  });
   const [erps, setErps] = useState<ERP[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -33,10 +39,6 @@ export default function Home() {
 
   // Fetch ERP data
   useEffect(() => {
-    const lastVisitedTab = localStorage.getItem("selectedTab");
-    if (lastVisitedTab) {
-      setSelectedTab(lastVisitedTab);
-    }
     async function loadERPData() {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -69,7 +71,6 @@ export default function Home() {
           process.env.NEXT_PUBLIC_PIPELINE_LIVE_ID || ""
         ),
       }));
-
       try {
         const results = await calculatePercentages(
           finalPipelineData,
@@ -137,7 +138,7 @@ export default function Home() {
     loadOutsourcingProgress();
   }, []);
 
-  // Filter ERPs based on selected tab
+  // Filter ERPs based on selected tab (for ERP cards view)
   const filterData = (status: string) => {
     if (status === "pipeline") {
       return erps.filter((erp) => erp.status === "In Pipeline");
@@ -149,21 +150,19 @@ export default function Home() {
     return [];
   };
 
-  const handleTabChange = (currentTab: string) => {
-    // if (currentTab === selectedTab) {
-    //   setSelectedTab("");
-    // } else {
-    setSelectedTab(currentTab);
-    // }
-    localStorage.setItem("selectedTab", currentTab);
+  const handleTabChange = (newTab: string) => {
+    setSelectedTab(newTab);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("selectedTab", newTab);
+    }
   };
 
   if (loading) {
     return <Loading />;
   }
 
-  // Statuses for tabs
-  const statuses = [
+  // Define statuses for ERP cards view.
+  const statusesForERP = [
     { label: "ERP IN PIPELINE", key: "pipeline", color: "bg-slate-500" },
     { label: "ERP ONBOARDED", key: "onboarded", color: "bg-slate-500" },
     {
@@ -173,64 +172,94 @@ export default function Home() {
     },
   ];
 
-  return (
-    <div className="p-4 min-h-screen bg-[#f8f9fa] text-[#212529]">
-      <div className="mb-15">
-        <h1
-          className="text-2xl md:text-4xl font-bold mb-5 text-black cursor-pointer"
-          // onClick={() => {
-          //   if (selectedTab === "") {
-          //     handleTabChange("pipeline");
-          //   } else {
-          //     handleTabChange("");
-          //   }
-          // }}
-        >
-          ERP / OUTSOURCING DASHBOARD
-        </h1>
-        {/* When a tab is selected, show both buttons */}
-        {selectedTab !== "" && (
-          <div className="flex gap-4 mb-4">
-            <button
-              className="bg-blue-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
-              onClick={() => handleTabChange("")}
-            >
-              View Live Dashboard status
-            </button>
-            <button
-              className="bg-green-500 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-green-400"
-              onClick={() => handleTabChange("financial")}
-            >
-              View Financial Status
-            </button>
-          </div>
-        )}
+  // Helper: Render Button Group
+  const renderButtonGroup = () => {
+    if (selectedTab === "dashboard" || selectedTab === "financial") {
+      return (
+        <div className="flex gap-4 mb-4">
+          <button
+            className="bg-blue-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-blue-500"
+            onClick={() => handleTabChange("pipeline")}
+          >
+            View ERPs/Contracts
+          </button>
+          <button
+            className="bg-green-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-green-500"
+            onClick={() =>
+              handleTabChange(
+                selectedTab === "dashboard" ? "financial" : "dashboard"
+              )
+            }
+          >
+            {selectedTab === "dashboard"
+              ? "View Financial Status"
+              : "View Live Dashboard status"}
+          </button>
+        </div>
+      );
+    } else {
+      // In ERP cards view: allow switching directly to dashboard or financial.
+      return (
+        <div className="flex gap-4 mb-4">
+          <button
+            className="bg-blue-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-blue-500"
+            onClick={() => handleTabChange("dashboard")}
+          >
+            View Live Dashboard status
+          </button>
+          <button
+            className="bg-green-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-green-500"
+            onClick={() => handleTabChange("financial")}
+          >
+            View Financial Status
+          </button>
+        </div>
+      );
+    }
+  };
 
-        {selectedTab === "" && (
-          <div className="flex gap-4 mb-4">
-            <button
-              className="bg-blue-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
-              onClick={() => handleTabChange("pipeline")}
-            >
-              View ERPs/Contracts
-            </button>
-            <button
-              className="bg-green-500 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-green-400"
-              onClick={() => handleTabChange("financial")}
-            >
-              View Financial Status
-            </button>
-          </div>
-        )}
-        {/* Tabs */}
+  // Helper: Render Heading Tabs
+  const renderHeadingTabs = () => {
+    if (selectedTab === "dashboard") {
+      // In dashboard mode, show all three statuses as disabled.
+      return (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          {statuses.map((status) => (
+          {statusesForERP.map((status) => (
+            <button
+              key={status.key}
+              disabled
+              className="text-lg md:text-2xl font-bold rounded p-2 bg-gray-200 text-black"
+            >
+              {status.label}
+            </button>
+          ))}
+        </div>
+      );
+    } else if (selectedTab === "financial") {
+      // In financial mode, show only onboarded and outsourcing (filter out pipeline).
+      const financialTabs = statusesForERP.filter((s) => s.key !== "pipeline");
+      return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          {financialTabs.map((status) => (
+            <button
+              key={status.key}
+              disabled
+              className="text-lg md:text-2xl font-bold rounded p-2 bg-gray-200 text-black"
+            >
+              {status.label}
+            </button>
+          ))}
+        </div>
+      );
+    } else {
+      // Otherwise (in ERP cards view) show clickable tabs.
+      return (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          {statusesForERP.map((status) => (
             <button
               key={status.key}
               className={`text-lg md:text-2xl font-bold rounded p-2 hover:bg-blue-300 ${
-                selectedTab === ""
-                  ? "bg-gray-200 text-black"
-                  : selectedTab === status.key
+                selectedTab === status.key
                   ? "bg-blue-400 text-white"
                   : "bg-gray-200 text-black"
               }`}
@@ -240,8 +269,37 @@ export default function Home() {
             </button>
           ))}
         </div>
-        {/* Dashboard Section, Financial Dashboard, or ERP Cards */}
-        {selectedTab === "" ? (
+      );
+    }
+  };
+
+  return (
+    <div className="p-4 min-h-screen bg-[#f8f9fa] text-[#212529]">
+      <div className="mb-15">
+        <h1
+          className="text-2xl md:text-4xl font-bold mb-5 text-black cursor-pointer"
+          // Toggle between "dashboard" and ERP cards view when clicking the title
+          onClick={() => {
+            if (selectedTab === "dashboard") {
+              handleTabChange("pipeline");
+            } else {
+              handleTabChange("dashboard");
+            }
+          }}
+        >
+          ERP / OUTSOURCING DASHBOARD
+        </h1>
+        {/* Render Button Group */}
+        {renderButtonGroup()}
+
+        {/* Render Heading Tabs if in dashboard/financial or ERP cards view */}
+        {(selectedTab === "dashboard" ||
+          selectedTab === "financial" ||
+          (selectedTab !== "dashboard" && selectedTab !== "financial")) &&
+          renderHeadingTabs()}
+
+        {/* Content Rendering */}
+        {selectedTab === "dashboard" ? (
           <DashboardSection
             pipelineProgress={pipelineProgress}
             onboardedProgress={onboardedProgress}
