@@ -13,6 +13,7 @@ import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
 import pipelineData from "@/data/pipeline.json";
 import onboardedData from "@/data/onboarded.json";
 import outsourcingData from "@/data/outsourcing.json";
+import FinancialDashboard from "@/components/FinancialDashboard";
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState<string>("");
@@ -149,11 +150,11 @@ export default function Home() {
   };
 
   const handleTabChange = (currentTab: string) => {
-    if (currentTab === selectedTab) {
-      setSelectedTab("");
-    } else {
-      setSelectedTab(currentTab);
-    }
+    // if (currentTab === selectedTab) {
+    //   setSelectedTab("");
+    // } else {
+    setSelectedTab(currentTab);
+    // }
     localStorage.setItem("selectedTab", currentTab);
   };
 
@@ -177,32 +178,49 @@ export default function Home() {
       <div className="mb-15">
         <h1
           className="text-2xl md:text-4xl font-bold mb-5 text-black cursor-pointer"
-          onClick={() => {
-            if (selectedTab === "") {
-              handleTabChange("pipeline");
-            } else {
-              handleTabChange("");
-            }
-          }}
+          // onClick={() => {
+          //   if (selectedTab === "") {
+          //     handleTabChange("pipeline");
+          //   } else {
+          //     handleTabChange("");
+          //   }
+          // }}
         >
           ERP / OUTSOURCING DASHBOARD
         </h1>
-        {/* View Dashboard Button: shown only when a tab is selected */}
+        {/* When a tab is selected, show both buttons */}
         {selectedTab !== "" && (
-          <button
-            className="bg-blue-400 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
-            onClick={() => handleTabChange("")}
-          >
-            View Live Dashboard status
-          </button>
+          <div className="flex gap-4 mb-4">
+            <button
+              className="bg-blue-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
+              onClick={() => handleTabChange("")}
+            >
+              View Live Dashboard status
+            </button>
+            <button
+              className="bg-green-500 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-green-400"
+              onClick={() => handleTabChange("financial")}
+            >
+              View Financial Status
+            </button>
+          </div>
         )}
+
         {selectedTab === "" && (
-          <button
-            className="bg-blue-400 text-white font-bold p-2 rounded mb-4 w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
-            onClick={() => handleTabChange("pipeline")}
-          >
-            View ERPs/Contracts
-          </button>
+          <div className="flex gap-4 mb-4">
+            <button
+              className="bg-blue-400 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-blue-300"
+              onClick={() => handleTabChange("pipeline")}
+            >
+              View ERPs/Contracts
+            </button>
+            <button
+              className="bg-green-500 text-white font-bold p-2 rounded w-full sm:w-auto text-md md:text-xl hover:bg-green-400"
+              onClick={() => handleTabChange("financial")}
+            >
+              View Financial Status
+            </button>
+          </div>
         )}
         {/* Tabs */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -222,13 +240,15 @@ export default function Home() {
             </button>
           ))}
         </div>
-        {/* Dashboard Section or ERP Cards */}
+        {/* Dashboard Section, Financial Dashboard, or ERP Cards */}
         {selectedTab === "" ? (
           <DashboardSection
             pipelineProgress={pipelineProgress}
             onboardedProgress={onboardedProgress}
             outsourcingProgress={outsourcingProgress}
           />
+        ) : selectedTab === "financial" ? (
+          <FinancialDashboard />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-stretch">
             {filterData(selectedTab).map((erp) => (

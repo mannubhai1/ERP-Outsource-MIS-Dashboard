@@ -58,8 +58,6 @@ export default function ERPDetailPage() {
   }
 
   const hasExtendedDate = erp.extendedDate && erp.extendedDate.length > 0;
-  // const hasExtendedDate = !!erp.extendedDate;
-  // console.log(`id : ${id}, ${hasExtendedDate}`);
 
   const firstRowData = [
     {
@@ -199,7 +197,7 @@ export default function ERPDetailPage() {
               erp.companies.map((company, idx) => (
                 <div
                   key={idx}
-                  className="relative group w-full h-40 overflow-hidden"
+                  className="relative group w-full h-50 overflow-hidden"
                 >
                   <div className="flip-card relative w-full h-full">
                     <div className="flip-card-inner w-full h-full">
@@ -249,7 +247,7 @@ export default function ERPDetailPage() {
             <>
               <h2 className="text-2xl font-semibold mb-4">RML DATA</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                <div className="relative group w-full h-40 overflow-hidden">
+                <div className="relative group w-full h-50 overflow-hidden">
                   <div className="flip-card relative w-full h-full">
                     <div className="flip-card-inner w-full h-full">
                       <div className="front flex justify-center items-center bg-white border shadow-lg rounded-lg">

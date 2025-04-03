@@ -17,7 +17,7 @@ export default function DashboardSection({
   return (
     <div className="flex flex-col sm:flex-row gap-8">
       {/* Pipeline Section */}
-      <div className="flex-1 border-2 border-gray-300 p-4 rounded">
+      <div className="flex-1 bg-white border-2 shadow-md border-gray-300 p-4 rounded">
         <div className="space-y-4">
           {pipelineProgress.map((item, index) => (
             <a
@@ -37,7 +37,7 @@ export default function DashboardSection({
         </div>
       </div>
       {/* Onboarded Section */}
-      <div className="flex-1 border-2 border-gray-300 p-4 rounded">
+      <div className="flex-1 bg-white border-2 shadow-md border-gray-300 p-4 rounded">
         <div className="space-y-4">
           {onboardedProgress.map((item, index) => (
             <a
@@ -57,7 +57,7 @@ export default function DashboardSection({
         </div>
       </div>
       {/* Outsourcing Section */}
-      <div className="flex-1 border-2 border-gray-300 p-4 rounded">
+      <div className="flex-1 bg-white border-2 shadow-md border-gray-300 p-4 rounded">
         <div className="space-y-4">
           {outsourcingProgress.map((item, index) => (
             <a
