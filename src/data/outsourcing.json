@@ -5,6 +5,11 @@
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=976120039#gid=976120039"
   },
   {
+    "name": "QMS - DIP",
+    "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=2084501754&single=true&output=csv",
+    "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=2084501754#gid=2084501754"
+  },
+  {
     "name": "House Keeping - Sodexo (RML1)",
     "csvUrl": "https://docs.google.com/spreadsheets/d/e/YOUR_NORMAL_CSV_ID/pub?gid=199610930&single=true&output=csv",
     "url": "https://docs.google.com/spreadsheets/d/YOUR_NORMAL_LIVE_ID/edit?gid=199610930#gid=199610930"
