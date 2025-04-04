@@ -47,7 +47,7 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
     nextSteps: safeSplit(row.nextSteps, /\r?\n/),
     targetDate: safeSplit(row.targetDate, /\r?\n/),
     extendedDate: row.extendedDate ? safeSplit(row.extendedDate, /\r?\n/) : [],
-    challenges: safeSplit(row.challenges, /\r?\n/),
+    Support: safeSplit(row.Support, /\r?\n/),
     primaryContacts: safeSplit(row.primaryContacts, "/"),
     businessUsers: safeSplit(row.businessUsers, "/"),
     NDA: safeSplit(row.NDA, /\r?\n/),
@@ -60,5 +60,6 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
     Milestones: safeString(row.Milestones),
     Comparative: safeString(row.Comparative),
     Miscellaneous: safeString(row.Miscellaneous),
+    Reports: safeString(row.Reports),
   }));
 }

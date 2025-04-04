@@ -8,7 +8,7 @@ export interface ERP {
   nextSteps: string[];
   targetDate: string[];
   extendedDate?: string[];
-  challenges: string[];
+  Support: string[];
   primaryContacts: string[];
   businessUsers: string[];
   NDA: string[];
@@ -21,6 +21,7 @@ export interface ERP {
   Milestones: string;
   Comparative: string;
   Miscellaneous: string;
+  Reports: string;
 }
 
 export interface ERPInput {
@@ -33,7 +34,7 @@ export interface ERPInput {
   nextSteps: string;
   targetDate: string;
   extendedDate?: string;
-  challenges: string;
+  Support: string;
   primaryContacts: string;
   businessUsers: string;
   NDA: string;
@@ -46,6 +47,7 @@ export interface ERPInput {
   Milestones: string;
   Comparative: string;
   Miscellaneous: string;
+  Reports: string;
 }
 
 export interface SheetPercentage {

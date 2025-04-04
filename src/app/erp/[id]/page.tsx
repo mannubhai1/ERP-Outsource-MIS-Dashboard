@@ -86,11 +86,8 @@ export default function ERPDetailPage() {
     },
     { label: "Next Steps", value: erp.nextSteps, style: "bg-yellow-200" },
     {
-      label: "Challenges",
-      value:
-        erp.challenges.length == 0
-          ? ["No challenges reported"]
-          : erp.challenges,
+      label: "Process Hurdles",
+      value: erp.Support.length == 0 ? ["None"] : erp.Support,
       style: "bg-red-300",
     },
   ];
@@ -112,10 +109,11 @@ export default function ERPDetailPage() {
   });
 
   const rmlItems = [
-    { label: "Correspondence", value: erp.Correspondence },
+    { label: "Reports", value: erp.Reports },
     { label: "Milestones", value: erp.Milestones },
     { label: "Comparative", value: erp.Comparative },
     { label: "Miscellaneous", value: erp.Miscellaneous },
+    { label: "Correspondence", value: erp.Correspondence },
   ];
 
   const filteredRmlItems = rmlItems.filter((item) => item.value.trim() !== "");
@@ -123,11 +121,11 @@ export default function ERPDetailPage() {
   let rmlGridClass = "";
   if (filteredRmlItems.length === 1) {
     rmlGridClass = "grid grid-cols-1 justify-items-center";
-  } else if (filteredRmlItems.length === 4) {
-    rmlGridClass = "grid grid-cols-2 gap-2 justify-items-center";
-  } else {
-    // For 2 or 3 items, you might want a single column or adjust as needed
+  } else if (filteredRmlItems.length <= 3) {
     rmlGridClass = "grid grid-cols-1 gap-2 justify-items-center";
+  } else {
+    // For items >3, you might want a single column or adjust as needed
+    rmlGridClass = "grid grid-cols-2 gap-2 justify-items-center";
   }
 
   return (
