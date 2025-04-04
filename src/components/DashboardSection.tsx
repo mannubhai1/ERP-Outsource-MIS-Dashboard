@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import ProgressBar from "@/components/ProgressBar";
+import CriticalIssuesMeetings from "@/components/CriticalIssuesMeetings";
+import issueData from "@/data/issues.json";
 import { SheetPercentage } from "@/lib/types";
 
 interface DashboardSectionProps {
@@ -15,9 +17,57 @@ export default function DashboardSection({
   outsourcingProgress,
 }: DashboardSectionProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-8">
-      {/* Pipeline Section */}
-      <div className="flex-1 bg-white border-2 shadow-md border-gray-300 p-4 rounded">
+    <>
+      {/* Top row with three columns: Critical Issues/Meetings, Onboarded, Outsourcing */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+        {/* Column 1: Critical Issues / Upcoming Meetings */}
+        <div className="w-full">
+          <CriticalIssuesMeetings data={issueData} />
+        </div>
+        {/* Column 2: Onboarded */}
+        <div className="w-full bg-white border-2 border-gray-300 shadow-md p-4 rounded">
+          {/* <h2 className="text-2xl font-bold mb-4">Onboarded</h2> */}
+          <div className="space-y-4">
+            {onboardedProgress.map((item, index) => (
+              <a
+                href={item.url}
+                key={item.name}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ProgressBar
+                  sheetName={item.name}
+                  progress={item.progress}
+                  index={index}
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+        {/* Column 3: Outsourcing */}
+        <div className="w-full bg-white border-2 border-gray-300 shadow-md p-4 rounded">
+          {/* <h2 className="text-2xl font-bold mb-4">Outsourcing</h2> */}
+          <div className="space-y-4">
+            {outsourcingProgress.map((item, index) => (
+              <a
+                href={item.url}
+                key={item.name}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ProgressBar
+                  sheetName={item.name}
+                  progress={item.progress}
+                  index={index}
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* Full-width Pipeline row */}
+      <div className="bg-white border-2 border-gray-300 shadow-md p-4 rounded">
+        <h2 className="text-2xl font-bold mb-4">Pipeline</h2>
         <div className="space-y-4">
           {pipelineProgress.map((item, index) => (
             <a
@@ -27,7 +77,6 @@ export default function DashboardSection({
               rel="noopener noreferrer"
             >
               <ProgressBar
-                key={item.name}
                 sheetName={item.name}
                 progress={item.progress}
                 index={index}
@@ -36,46 +85,6 @@ export default function DashboardSection({
           ))}
         </div>
       </div>
-      {/* Onboarded Section */}
-      <div className="flex-1 bg-white border-2 shadow-md border-gray-300 p-4 rounded">
-        <div className="space-y-4">
-          {onboardedProgress.map((item, index) => (
-            <a
-              href={item.url}
-              key={item.name}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ProgressBar
-                key={item.name}
-                sheetName={item.name}
-                progress={item.progress}
-                index={index}
-              />
-            </a>
-          ))}
-        </div>
-      </div>
-      {/* Outsourcing Section */}
-      <div className="flex-1 bg-white border-2 shadow-md border-gray-300 p-4 rounded">
-        <div className="space-y-4">
-          {outsourcingProgress.map((item, index) => (
-            <a
-              href={item.url}
-              key={item.name}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ProgressBar
-                key={item.name}
-                sheetName={item.name}
-                progress={item.progress}
-                index={index}
-              />
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
