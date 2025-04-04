@@ -86,7 +86,7 @@ export default function ERPDetailPage() {
     },
     { label: "Next Steps", value: erp.nextSteps, style: "bg-yellow-200" },
     {
-      label: "Process Hurdles",
+      label: "Support Required",
       value: erp.Support.length == 0 ? ["None"] : erp.Support,
       style: "bg-red-300",
     },
