@@ -76,6 +76,7 @@ export default function Home() {
           finalPipelineData,
           "pipeline"
         );
+        // console.log("Pipeline Progress Results:", results);
         setPipelineProgress(results as SheetPercentage[]);
       } catch (error) {
         console.error("Error calculating pipeline percentages", error);
