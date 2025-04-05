@@ -3,7 +3,7 @@ import React from "react";
 import ProgressBar from "@/components/ProgressBar";
 import CriticalIssuesMeetings from "@/components/CriticalIssuesMeetings";
 import { SheetPercentage } from "@/lib/types";
-import { PipelineComponent } from "./PipelineComponent";
+// import { PipelineComponent } from "./PipelineComponent";
 
 interface DashboardSectionProps {
   pipelineProgress: SheetPercentage[];
@@ -67,7 +67,23 @@ export default function DashboardSection({
       <div className="bg-white border-2 border-gray-300 shadow-md p-4 rounded">
         <h2 className="text-2xl font-bold mb-4">Pipeline</h2>
         <div className="space-y-4">
-          <PipelineComponent pipelineData={pipelineProgress} />
+          {/* <PipelineComponent pipelineData={pipelineProgress} /> */}
+          <div className="space-y-4">
+            {pipelineProgress.map((item, index) => (
+              <a
+                href={item.url}
+                key={item.name}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ProgressBar
+                  sheetName={item.name}
+                  progress={item.progress}
+                  index={index}
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </>
