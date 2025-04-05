@@ -37,7 +37,7 @@ export default function CriticalIssuesMeetings() {
         {/* Meetings Section */}
         <div className="p-2 border-b border-gray-300">
           <h3 className="text-xl font-semibold mb-2 flex items-center">
-            <Calendar className="mr-2 text-green-500" />
+            {/* <Calendar className="mr-2 text-green-500" /> */}
             Upcoming Meetings
           </h3>
           {meetings.length > 0 ? (
@@ -56,7 +56,7 @@ export default function CriticalIssuesMeetings() {
         {/* Issues Section */}
         <div className="p-2">
           <h3 className="text-xl font-semibold mb-2 flex items-center">
-            <AlertCircle className="mr-2 text-red-500" />
+            {/* <AlertCircle className="mr-2 text-red-500" /> */}
             Critical Issues
           </h3>
           {issues.length > 0 ? (

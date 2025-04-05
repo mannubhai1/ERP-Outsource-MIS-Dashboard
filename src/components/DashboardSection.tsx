@@ -2,8 +2,8 @@
 import React from "react";
 import ProgressBar from "@/components/ProgressBar";
 import CriticalIssuesMeetings from "@/components/CriticalIssuesMeetings";
-import issueData from "@/data/issues.json";
 import { SheetPercentage } from "@/lib/types";
+import { PipelineComponent } from "./PipelineComponent";
 
 interface DashboardSectionProps {
   pipelineProgress: SheetPercentage[];
@@ -18,11 +18,10 @@ export default function DashboardSection({
 }: DashboardSectionProps) {
   return (
     <>
-      {/* Top row with three columns: Critical Issues/Meetings, Onboarded, Outsourcing */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
         {/* Column 1: Critical Issues / Upcoming Meetings */}
         <div className="w-full">
-          <CriticalIssuesMeetings data={issueData} />
+          <CriticalIssuesMeetings />
         </div>
         {/* Column 2: Onboarded */}
         <div className="w-full bg-white border-2 border-gray-300 shadow-md p-4 rounded">
@@ -65,24 +64,10 @@ export default function DashboardSection({
           </div>
         </div>
       </div>
-      {/* Full-width Pipeline row */}
       <div className="bg-white border-2 border-gray-300 shadow-md p-4 rounded">
         <h2 className="text-2xl font-bold mb-4">Pipeline</h2>
         <div className="space-y-4">
-          {pipelineProgress.map((item, index) => (
-            <a
-              href={item.url}
-              key={item.name}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ProgressBar
-                sheetName={item.name}
-                progress={item.progress}
-                index={index}
-              />
-            </a>
-          ))}
+          <PipelineComponent pipelineData={pipelineProgress} />
         </div>
       </div>
     </>
