@@ -62,7 +62,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   return (
     <div className="w-full mb-6">
       <h3
-        className={`text-${
+        className={`text-xl md:text-${
           size ? size : "2xl"
         } font-semibold text-gray-700 mb-2`}
       >
