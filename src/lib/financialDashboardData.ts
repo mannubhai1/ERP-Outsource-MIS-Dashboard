@@ -17,7 +17,7 @@ export async function fetchFinancialDashboardData(csvUrl: string): Promise<{
     const csvText = await response.text();
     return new Promise((resolve, reject) => {
       Papa.parse<string[]>(csvText, {
-        header: false, // assuming no header row; if present, adjust accordingly
+        header: false,
         skipEmptyLines: true,
         complete: (results) => {
           // Assume first row is header so we skip it.

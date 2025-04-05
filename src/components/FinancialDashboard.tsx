@@ -4,6 +4,7 @@ import { ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import { numberWithCommas } from "@/lib/numberWIthCommas";
 import {
   fetchFinancialDashboardData,
   FinancialData,
@@ -68,8 +69,11 @@ const FinancialDashboard: React.FC = () => {
           <div className="mb-4">
             <p className="text-lg font-semibold">
               Total Project Cost:{" "}
-              {(totalProjectCostOnboarded / 100000).toFixed(2)}L, Total Invoice:{" "}
-              {(totalInvoiceOnboarded / 100000).toFixed(2)}L
+              {numberWithCommas(
+                (totalProjectCostOnboarded / 100000).toFixed(0)
+              )}{" "}
+              L and Total Invoice: {(totalInvoiceOnboarded / 100000).toFixed(0)}{" "}
+              L
             </p>
           </div>
           <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
@@ -101,8 +105,9 @@ const FinancialDashboard: React.FC = () => {
         <div className="w-full sm:w-3/4">
           <div className="mb-4">
             <p className="text-lg font-semibold">
-              Total Project Cost: {totalProjectCostOutsourcing}L, Total Invoice:{" "}
-              {totalInvoiceOutsourcing}L
+              Total Project Cost:{" "}
+              {(totalProjectCostOutsourcing / 100000).toFixed(0)} L and Total
+              Invoice: {(totalInvoiceOutsourcing / 100000).toFixed(0)} L
             </p>
           </div>
           <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
