@@ -22,6 +22,7 @@ export interface ERP {
   Comparative: string;
   Miscellaneous: string;
   Reports: string;
+  Issues: string[];
 }
 
 export interface ERPInput {
@@ -48,6 +49,7 @@ export interface ERPInput {
   Comparative: string;
   Miscellaneous: string;
   Reports: string;
+  Issues: string;
 }
 
 export interface SheetPercentage {

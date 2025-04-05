@@ -48,6 +48,7 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
     targetDate: safeSplit(row.targetDate, /\r?\n/),
     extendedDate: row.extendedDate ? safeSplit(row.extendedDate, /\r?\n/) : [],
     Support: safeSplit(row.Support, /\r?\n/),
+    Issues: safeSplit(row.Issues, /\r?\n/),
     primaryContacts: safeSplit(row.primaryContacts, "/"),
     businessUsers: safeSplit(row.businessUsers, "/"),
     NDA: safeSplit(row.NDA, /\r?\n/),

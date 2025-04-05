@@ -78,19 +78,24 @@ export default function ERPDetailPage() {
     },
   ];
 
-  const secondRowData = [
-    {
-      label: "Current Status",
-      value: erp.currentStatus,
-      style: "bg-blue-200",
-    },
-    { label: "Next Steps", value: erp.nextSteps, style: "bg-yellow-200" },
-    {
-      label: "Support Required",
-      value: erp.Support.length == 0 ? ["None"] : erp.Support,
-      style: "bg-red-300",
-    },
-  ];
+  // const secondRowData = [
+  //   {
+  //     label: "Current Status",
+  //     value: erp.currentStatus,
+  //     style: "bg-blue-200",
+  //   },
+  //   { label: "Next Steps", value: erp.nextSteps, style: "bg-yellow-200" },
+  //   {
+  //     label: "Support Required",
+  //     value: erp.Support.length == 0 ? ["None"] : erp.Support,
+  //     style: "bg-green-300",
+  //   },
+  //   {
+  //     label: "Issues",
+  //     value: erp.Issues.length == 0 ? ["None"] : erp.Issues,
+  //     style: "bg-red-300",
+  //   },
+  // ];
 
   const companyDocs = [
     { label: "NDA", value: erp.NDA },
@@ -167,23 +172,63 @@ export default function ERPDetailPage() {
 
           {/* Second Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {secondRowData.map((item, idx) => (
-              <div
-                key={idx}
-                className={`p-4 border rounded-lg bg-blue-100 shadow-md ${item.style}`}
-              >
+            {/* Column 1: Current Status */}
+            <div className="p-4 border rounded-lg bg-blue-100 shadow-md">
+              <strong className="text-md md:text-lg lg:text-xl">
+                Current Status:
+              </strong>
+              <ul className="list-disc pl-5 mt-2">
+                {erp.currentStatus.map((val: string, index: number) => (
+                  <li key={index} className="text-black">
+                    {val}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Column 2: Next Steps */}
+            <div className="p-4 border rounded-lg bg-yellow-100 shadow-md">
+              <strong className="text-md md:text-lg lg:text-xl">
+                Next Steps:
+              </strong>
+              <ul className="list-disc pl-5 mt-2">
+                {erp.nextSteps.map((val: string, index: number) => (
+                  <li key={index} className="text-black">
+                    {val}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Column 3: Combined Support & Issues */}
+            <div className="flex flex-col gap-4">
+              <div className="p-4 border rounded-lg bg-green-100 shadow-md">
                 <strong className="text-md md:text-lg lg:text-xl">
-                  {item.label}:
+                  Support Required:
                 </strong>
                 <ul className="list-disc pl-5 mt-2">
-                  {item.value.map((val: string, index: number) => (
-                    <li key={index} className="text-black">
-                      {val}
-                    </li>
-                  ))}
+                  {(erp.Support.length === 0 ? ["None"] : erp.Support).map(
+                    (val: string, index: number) => (
+                      <li key={index} className="text-black">
+                        {val}
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
-            ))}
+              <div className="p-4 border rounded-lg bg-red-100 shadow-md">
+                <strong className="text-md md:text-lg lg:text-xl">
+                  Issues:
+                </strong>
+                <ul className="list-disc pl-5 mt-2">
+                  {(erp.Issues.length === 0 ? ["None"] : erp.Issues).map(
+                    (val: string, index: number) => (
+                      <li key={index} className="text-black">
+                        {val}
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+            </div>
           </div>
 
           {/* Companies Row */}
