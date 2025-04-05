@@ -222,19 +222,20 @@ export default function Home() {
   // Helper: Render Heading Tabs
   const renderHeadingTabs = () => {
     if (selectedTab === "dashboard") {
-      // In dashboard mode, show all three statuses as disabled.
+      // In dashboard mode, show all three statuses as .
       return (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          {statusesForERP.map((status) => (
-            <button
-              key={status.key}
-              disabled
-              className="text-lg md:text-2xl font-bold rounded p-2 bg-gray-200 text-black"
-            >
-              {status.label}
-            </button>
-          ))}
-        </div>
+        <></>
+        // <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        //   {statusesForERP.map((status) => (
+        //     <button
+        //       onClick={() => handleTabChange(status.key)}
+        //       key={status.key}
+        //       className="text-lg md:text-2xl font-bold rounded p-2 bg-gray-200 text-black"
+        //     >
+        //       {status.label}
+        //     </button>
+        //   ))}
+        // </div>
       );
     } else if (selectedTab === "financial") {
       // In financial mode, show only onboarded and outsourcing (filter out pipeline).
@@ -244,7 +245,6 @@ export default function Home() {
           {financialTabs.map((status) => (
             <button
               key={status.key}
-              disabled
               className="text-lg md:text-2xl font-bold rounded p-2 bg-gray-200 text-black"
             >
               {status.label}

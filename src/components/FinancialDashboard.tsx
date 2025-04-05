@@ -66,158 +66,137 @@ const FinancialDashboard: React.FC = () => {
   } satisfies ChartConfig;
 
   return (
-    <div className="p-4">
-      {/* <h2 className="text-2xl font-bold mb-4">Financial Dashboard</h2> */}
-      <div className="flex flex-col lg:flex-row gap-x-20 justify-between items-center mt-5 md:mt-10">
-        {/* Onboarded Chart & Totals */}
-        <div className="w-full sm:w-3/4">
-          <div className="mb-4">
-            <p className="text-lg font-semibold">
-              Total Project Cost:{" "}
-              {numberWithCommas(
-                (totalProjectCostOnboarded / 10000000).toFixed(0)
-              )}{" "}
-              Cr and Total Invoice:{" "}
-              {(totalInvoiceOnboarded / 10000000).toFixed(0)} Cr
-            </p>
-          </div>
-          <ChartContainer config={chartConfig} className="min-h-[350px] w-full">
-            <BarChart data={onboardedData}>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="Software"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <YAxis
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => {
-                  return `${Math.round(value) / 10000000} Cr`;
+    // <div className="p-4 w-full overflow-x-hidden">
+    <div className="flex flex-row flex-wrap gap-4 justify-around items-center mt-5 md:mt-10">
+      {/* Onboarded Chart & Totals */}
+      <div className="w-full sm:w-2/5">
+        <div className="mb-4">
+          <p className="text-lg font-semibold">
+            Onboarded Total Project Cost:{" "}
+            {numberWithCommas(
+              (totalProjectCostOnboarded / 10000000).toFixed(0)
+            )}{" "}
+            Cr and Total Invoice:{" "}
+            {(totalInvoiceOnboarded / 10000000).toFixed(0)} Cr
+          </p>
+        </div>
+        <ChartContainer config={chartConfig} className="min-h-[350px] w-full">
+          <BarChart data={onboardedData} margin={{ top: 20 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="Software"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <YAxis
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => `${Math.round(value) / 10000000} Cr`}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="ProjectCost" fill="blue" radius={4}>
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+                formatter={(value: number) => {
+                  if (value === 0) return "0";
+                  if (value < 10000000)
+                    return `${(Math.round(value) / 100000).toFixed(0)} L`;
+                  return `${numberWithCommas(
+                    (Math.round(value) / 10000000).toFixed(0)
+                  )} Cr`;
                 }}
               />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="ProjectCost" fill="blue" radius={4}>
-                {" "}
-                <LabelList
-                  position="top"
-                  offset={12}
-                  className="fill-foreground"
-                  fontSize={12}
-                  formatter={(value: number) => {
-                    if (value === 0) {
-                      return "0";
-                    } else if (value < 10000000) {
-                      return `${(Math.round(value) / 100000).toFixed(0)} L`;
-                    } else {
-                      return `${numberWithCommas(
-                        (Math.round(value) / 10000000).toFixed(0)
-                      )} Cr`;
-                    }
-                  }}
-                />
-              </Bar>
-              <Bar dataKey="InvoiceValue" fill="green" radius={4}>
-                <LabelList
-                  position="top"
-                  offset={12}
-                  className="fill-foreground"
-                  fontSize={12}
-                  formatter={(value: number) => {
-                    if (value === 0) {
-                      return "0";
-                    } else if (value < 10000000) {
-                      return `${(Math.round(value) / 100000).toFixed(0)} L`;
-                    } else {
-                      return `${numberWithCommas(
-                        (Math.round(value) / 10000000).toFixed(0)
-                      )} Cr`;
-                    }
-                  }}
-                />
-              </Bar>
-            </BarChart>
-          </ChartContainer>
-        </div>
-        {/* Outsourcing Chart & Totals */}
-        <div className="w-full sm:w-3/4">
-          <div className="mb-4">
-            <p className="text-lg font-semibold">
-              Total Project Cost:{" "}
-              {(totalProjectCostOutsourcing / 10000000).toFixed(0)} Cr and Total
-              Invoice: {(totalInvoiceOutsourcing / 10000000).toFixed(0)} Cr
-            </p>
-          </div>
-          <ChartContainer
-            config={chartConfig}
-            className="min-h-[350px] w-full "
-          >
-            <BarChart data={outsourcingData}>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="Software"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <YAxis
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => {
-                  return `${Math.round(value) / 10000000} Cr`;
+            </Bar>
+            <Bar dataKey="InvoiceValue" fill="green" radius={4}>
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+                formatter={(value: number) => {
+                  if (value === 0) return "0";
+                  if (value < 10000000)
+                    return `${(Math.round(value) / 100000).toFixed(0)} L`;
+                  return `${numberWithCommas(
+                    (Math.round(value) / 10000000).toFixed(0)
+                  )} Cr`;
                 }}
               />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="ProjectCost" fill="blue" radius={4}>
-                <LabelList
-                  position="top"
-                  offset={12}
-                  className="fill-foreground"
-                  fontSize={12}
-                  formatter={(value: number) => {
-                    if (value === 0) {
-                      return "0";
-                    } else if (value < 10000000) {
-                      return `${(Math.round(value) / 100000).toFixed(0)} L`;
-                    } else {
-                      return `${numberWithCommas(
-                        (Math.round(value) / 10000000).toFixed(0)
-                      )} Cr`;
-                    }
-                  }}
-                />
-              </Bar>
-              <Bar dataKey="InvoiceValue" fill="green" radius={4}>
-                <LabelList
-                  position="top"
-                  offset={12}
-                  className="fill-foreground"
-                  fontSize={12}
-                  formatter={(value: number) => {
-                    if (value === 0) {
-                      return "0";
-                    } else if (value < 10000000) {
-                      return `${(Math.round(value) / 100000).toFixed(0)} L`;
-                    } else {
-                      return `${numberWithCommas(
-                        (Math.round(value) / 10000000).toFixed(0)
-                      )} Cr`;
-                    }
-                  }}
-                />
-              </Bar>
-            </BarChart>
-          </ChartContainer>
+            </Bar>
+          </BarChart>
+        </ChartContainer>
+      </div>
+      {/* Outsourcing Chart & Totals */}
+      <div className="w-full sm:w-2/5">
+        <div className="mb-4">
+          <p className="text-lg font-semibold">
+            Outsourcing Total Project Cost:{" "}
+            {(totalProjectCostOutsourcing / 10000000).toFixed(0)} Cr, Total
+            Invoice: {(totalInvoiceOutsourcing / 10000000).toFixed(0)} Cr
+          </p>
         </div>
+        <ChartContainer config={chartConfig} className="min-h-[350px] w-full">
+          <BarChart data={outsourcingData} margin={{ top: 20 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="Software"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <YAxis
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => `${Math.round(value) / 10000000} Cr`}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="ProjectCost" fill="blue" radius={4}>
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+                formatter={(value: number) => {
+                  if (value === 0) return "0";
+                  if (value < 10000000)
+                    return `${(Math.round(value) / 100000).toFixed(0)} L`;
+                  return `${numberWithCommas(
+                    (Math.round(value) / 10000000).toFixed(0)
+                  )} Cr`;
+                }}
+              />
+            </Bar>
+            <Bar dataKey="InvoiceValue" fill="green" radius={4}>
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+                formatter={(value: number) => {
+                  if (value === 0) return "0";
+                  if (value < 10000000)
+                    return `${(Math.round(value) / 100000).toFixed(0)} L`;
+                  return `${numberWithCommas(
+                    (Math.round(value) / 10000000).toFixed(0)
+                  )} Cr`;
+                }}
+              />
+            </Bar>
+          </BarChart>
+        </ChartContainer>
       </div>
     </div>
+    // </div>
   );
 };
 
