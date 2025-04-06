@@ -73,9 +73,6 @@ const FinancialDashboard: React.FC = () => {
   // Helper function to format values:
   const formatCost = (value: number): string => {
     if (value === 0) return "0";
-    if (value < 10000000) {
-      return `${Math.round(value / 100000)} L`;
-    }
     return `${numberWithCommas((value / 10000000).toFixed(1))} Cr`;
   };
 
