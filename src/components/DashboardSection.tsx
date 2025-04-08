@@ -41,7 +41,7 @@ export default function DashboardSection({
         className="order-3 bg-white border-2 border-gray-300 shadow-md p-4 rounded 
                       lg:col-start-2 lg:row-span-2 flex flex-col justify-between min-h-[300px]"
       >
-        <h2 className="text-2xl font-bold mb-4">OnBoarded</h2>
+        <h2 className="text-2xl font-bold mb-4">OnBoarded ERP Tracker</h2>
         <div className="space-y-4 flex-grow">
           {onboardedProgress.map((item, index) => (
             <a
@@ -65,7 +65,9 @@ export default function DashboardSection({
         className="order-4 bg-white border-2 border-gray-300 shadow-md p-4 rounded 
                       lg:col-start-3 lg:row-span-2 flex flex-col justify-between min-h-[300px]"
       >
-        <h2 className="text-2xl font-bold mb-4">Outsourcing</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          Outsourcing Contracts Tracker
+        </h2>
         <div className="space-y-4 flex-grow">
           {outsourcingProgress.map((item, index) => (
             <a
