@@ -2,17 +2,21 @@
 import { useEffect, useState } from "react";
 import { AlertCircle, Calendar } from "lucide-react";
 import { fetchCriticalData, CriticalData } from "@/lib/criticalIssuesData";
+import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
 
 export default function CriticalIssuesMeetings() {
   const [data, setData] = useState<CriticalData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const csvUrl = `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_ISSUES_CSV_ID}/pub?gid=2019171411&single=true&output=csv`;
-
   useEffect(() => {
-    async function fetchData() {
+    async function loadIssuesMeetingsData() {
       try {
         const parsedData = await fetchCriticalData(csvUrl);
+        if (!parsedData) {
+          throw new Error("Failed to fetch or parse data");
+        }
+        console.log("Fetched critical data:", parsedData);
         setData(parsedData);
       } catch (error) {
         console.error("Error fetching critical data:", error);
@@ -20,7 +24,9 @@ export default function CriticalIssuesMeetings() {
         setLoading(false);
       }
     }
-    fetchData();
+    loadIssuesMeetingsData();
+    const interval = setInterval(loadIssuesMeetingsData, DATA_REFRESH_INTERVAL);
+    return () => clearInterval(interval);
   }, [csvUrl]);
 
   if (loading) return <p>Loading critical issues and meetings...</p>;
@@ -28,6 +34,7 @@ export default function CriticalIssuesMeetings() {
   const meetings = data?.meetings || [];
   const issues = data?.issues || [];
   const meetingLinks = data?.meetingLinks || [];
+  console.log("Meetings:", meetings);
 
   return (
     <div className="p-4 bg-white border rounded-lg shadow-md">
@@ -45,6 +52,7 @@ export default function CriticalIssuesMeetings() {
             <ul className="space-y-2">
               {meetings.map((meeting, index) => {
                 const link = meetingLinks[index];
+                console.log("Meeting link:", link, "Index:", index);
                 const isLinkEmpty = !link || link.trim() === "";
 
                 return (

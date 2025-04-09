@@ -7,7 +7,7 @@ export interface CriticalData {
 }
 
 export async function fetchCriticalData(csvUrl: string): Promise<CriticalData> {
-  const response = await fetch(csvUrl, { next: { revalidate: 0 } });
+  const response = await fetch(csvUrl, { cache: "no-store" });
   const csvText = await response.text();
 
   return new Promise<CriticalData>((resolve, reject) => {
