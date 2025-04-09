@@ -2,24 +2,51 @@ import Link from "next/link";
 import { ERP } from "@/lib/types";
 
 export default function ERPCard({ erp }: { erp: ERP }) {
-  // Assume targetDate and extendedDate are arrays:
   const targetDates = erp.targetDate || [];
   const extendedDates = erp.extendedDate || [];
-
-  // Extended date is "present" if there's at least one entry
   const hasExtendedDate = extendedDates.length > 0;
+  // console.log("ERPCard", erp);
+
+  interface DelayStatusClasses {
+    [key: string]: string;
+  }
+
+  const delayStatusClasses: DelayStatusClasses = {
+    "before-time": "bg-green-100 text-green-800 border-green-300",
+    "on-time": "bg-yellow-100 text-yellow-800 border-yellow-300",
+    delayed: "bg-red-100 text-red-800 border-red-300",
+  };
 
   return (
     <Link href={`/erp/${erp.id}`}>
-      {/* 
-        Use flex-col and h-full to allow the card to expand
-        and rely on a parent container (grid or flex with items-stretch) 
-        to enforce consistent heights across cards.
-      */}
       <div className="flex flex-col h-full space-y-6 bg-gray-50 rounded-xl shadow-md p-4 hover:shadow-lg cursor-pointer hover:bg-green-100">
-        <h3 className="text-xl text-black font-semibold">
-          {erp.name.toUpperCase()}
-        </h3>
+        <div className="flex flex-col lg:flex-row justify-between">
+          <h3 className="text-xl text-black font-semibold w-full md:w-3/5 break-words">
+            {erp.name.toUpperCase()}
+          </h3>
+          <div className="mt-2 md:mt-2">
+            {erp.delayStatus === "" ? (
+              <div className="w-full md:w-auto min-w-[120px] text-sm sm:text-base border border-gray-300 rounded-full px-3 py-1 text-center bg-gray-100 text-gray-800">
+                No Status
+              </div>
+            ) : (
+              <div
+                className={`w-full md:w-auto min-w-[120px] text-sm sm:text-base border rounded-full px-3 py-1 text-center ${
+                  delayStatusClasses[erp.delayStatus] ||
+                  "bg-gray-100 text-gray-800 border-gray-300"
+                }`}
+              >
+                {erp.delayStatus === "before-time"
+                  ? "Before Time"
+                  : erp.delayStatus === "on-time"
+                  ? "On Time"
+                  : erp.delayStatus === "delayed"
+                  ? "Delayed"
+                  : erp.delayStatus}
+              </div>
+            )}
+          </div>
+        </div>
 
         <div className="text-md md:text-lg mt-2 flex-grow">
           {/* Only render dates if we actually have them */}

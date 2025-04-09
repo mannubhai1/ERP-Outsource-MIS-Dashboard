@@ -19,7 +19,9 @@ export default function ERPDetailPage() {
       // setLoading(true);
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-        const res = await fetch(`${baseUrl}/api/erps/${id}`);
+        const res = await fetch(`${baseUrl}/api/erps/${id}`, {
+          cache: "no-store",
+        });
         if (!res.ok) {
           throw new Error("Failed to fetch ERP detail");
         }

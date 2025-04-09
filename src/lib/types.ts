@@ -4,6 +4,7 @@ export interface ERP {
   companies: string[];
   lastUpdated: string;
   status: string;
+  delayStatus: string;
   currentStatus: string[];
   nextSteps: string[];
   targetDate: string[];
@@ -31,6 +32,7 @@ export interface ERPInput {
   companies: string;
   lastUpdated: string;
   status: string;
+  delayStatus: string;
   currentStatus: string;
   nextSteps: string;
   targetDate: string;

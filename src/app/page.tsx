@@ -45,6 +45,7 @@ export default function Home() {
         const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to fetch ERP Data");
         const data = await res.json();
+        // console.log("Fetched ERP Data:", data);
         setErps(data);
       } catch (error) {
         console.error("Error fetching ERP data:", error);

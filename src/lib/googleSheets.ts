@@ -43,6 +43,7 @@ export async function fetchGoogleSheetData(): Promise<ERP[]> {
     ),
     lastUpdated: safeString(row.lastUpdated),
     status: safeString(row.status),
+    delayStatus: safeString(row.delayStatus),
     currentStatus: safeSplit(row.currentStatus, /\r?\n/),
     nextSteps: safeSplit(row.nextSteps, /\r?\n/),
     targetDate: safeSplit(row.targetDate, /\r?\n/),
