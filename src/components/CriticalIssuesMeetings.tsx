@@ -9,6 +9,7 @@ export default function CriticalIssuesMeetings() {
   const [loading, setLoading] = useState<boolean>(true);
 
   const csvUrl = `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_ISSUES_CSV_ID}/pub?gid=2019171411&single=true&output=csv`;
+
   useEffect(() => {
     async function loadIssuesMeetingsData() {
       try {
@@ -16,7 +17,7 @@ export default function CriticalIssuesMeetings() {
         if (!parsedData) {
           throw new Error("Failed to fetch or parse data");
         }
-        console.log("Fetched critical data:", parsedData);
+        // console.log("Fetched critical data:", parsedData);
         setData(parsedData);
       } catch (error) {
         console.error("Error fetching critical data:", error);
@@ -29,12 +30,11 @@ export default function CriticalIssuesMeetings() {
     return () => clearInterval(interval);
   }, [csvUrl]);
 
-  if (loading) return <p>Loading critical issues and meetings...</p>;
+  if (loading) return <p>Loading critical issues and meeting links...</p>;
 
-  const meetings = data?.meetings || [];
+  // Using only issues and the meeting map
   const issues = data?.issues || [];
-  const meetingLinks = data?.meetingLinks || [];
-  console.log("Meetings:", meetings);
+  const meetingMap = data?.meetingMap || {};
 
   return (
     <div className="p-4 bg-white border rounded-lg shadow-md">
@@ -42,27 +42,24 @@ export default function CriticalIssuesMeetings() {
         Critical Issues / Upcoming Meetings
       </h2>
       <div className="flex flex-col gap-4">
-        {/* Meetings Section */}
+        {/* Meeting Links Section */}
         <div className="p-2 border-b border-gray-300">
           <h3 className="text-xl font-semibold mb-2 flex items-center">
             <Calendar className="mt-1 mr-2 text-green-500" />
             Upcoming Meetings
           </h3>
-          {meetings.length > 0 ? (
+          {Object.keys(meetingMap).length > 0 ? (
             <ul className="space-y-2">
-              {meetings.map((meeting, index) => {
-                const link = meetingLinks[index];
-                console.log("Meeting link:", link, "Index:", index);
+              {Object.entries(meetingMap).map(([meeting, link], index) => {
                 const isLinkEmpty = !link || link.trim() === "";
-
                 return (
                   <li
                     key={index}
-                    className="flex items-start text-lg md:text-xl"
+                    className="flex items-center text-lg md:text-xl"
                   >
                     <span className="leading-relaxed">{meeting}</span>
                     {isLinkEmpty ? (
-                      <span className="text-sm text-gray-400 ml-2">
+                      <span className="ml-auto text-sm text-gray-400">
                         No meeting link attached
                       </span>
                     ) : (
@@ -70,7 +67,7 @@ export default function CriticalIssuesMeetings() {
                         href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-500 hover:underline ml-2"
+                        className="ml-auto text-blue-500 hover:underline"
                       >
                         Meeting Link
                       </a>

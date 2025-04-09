@@ -1,9 +1,8 @@
 import Papa from "papaparse";
 
 export interface CriticalData {
-  meetings: string[];
   issues: string[];
-  meetingLinks: string[];
+  meetingMap: Record<string, string>;
 }
 
 export async function fetchCriticalData(csvUrl: string): Promise<CriticalData> {
@@ -18,23 +17,24 @@ export async function fetchCriticalData(csvUrl: string): Promise<CriticalData> {
         skipEmptyLines: true,
         complete: (results) => {
           const data = results.data;
-          const meetings: string[] = [];
           const issues: string[] = [];
-          const meetingLinks: string[] = [];
+          const meetingMap: Record<string, string> = {};
 
           data.forEach((row) => {
-            if (row.Meetings && row.Meetings.trim().length > 0) {
-              meetings.push(row.Meetings.trim());
+            const meeting = row.Meetings?.trim() || "";
+            const issue = row.Issues?.trim() || "";
+            const meetingLink = row.MeetingLinks?.trim() || "";
+
+            // Only add a meeting to the map if it's non-empty.
+            if (meeting.length > 0) {
+              meetingMap[meeting] = meetingLink;
             }
-            if (row.Issues && row.Issues.trim().length > 0) {
-              issues.push(row.Issues.trim());
-            }
-            if (row.MeetingLinks && row.MeetingLinks.trim().length > 0) {
-              meetingLinks.push(row.MeetingLinks.trim());
+            // Add non-empty issues.
+            if (issue.length > 0) {
+              issues.push(issue);
             }
           });
-          console.log(meetingLinks);
-          resolve({ meetings, issues, meetingLinks });
+          resolve({ issues, meetingMap });
         },
         error: reject,
       }
