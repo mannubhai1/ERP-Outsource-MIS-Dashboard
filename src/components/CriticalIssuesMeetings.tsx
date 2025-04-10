@@ -1,40 +1,63 @@
 "use client";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
+import Papa from "papaparse";
 import { AlertCircle, Calendar } from "lucide-react";
-import { fetchCriticalData, CriticalData } from "@/lib/criticalIssuesData";
 import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
 
-export default function CriticalIssuesMeetings() {
-  const [data, setData] = useState<CriticalData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+// Define the CriticalData interface
+export interface CriticalData {
+  issues: string[];
+  meetingMap: Record<string, string>;
+}
 
+// Create a fetcher function that retrieves and parses the CSV data
+const fetchCriticalData = async (csvUrl: string): Promise<CriticalData> => {
+  const response = await fetch(csvUrl, { cache: "no-store" });
+  const csvText = await response.text();
+
+  return new Promise((resolve, reject) => {
+    Papa.parse<{ Meetings: string; Issues: string; MeetingLinks: string }>(
+      csvText,
+      {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const rows = results.data;
+          const issues: string[] = [];
+          const meetingMap: Record<string, string> = {};
+
+          rows.forEach((row) => {
+            const meeting = row.Meetings?.trim() || "";
+            const issue = row.Issues?.trim() || "";
+            const meetingLink = row.MeetingLinks?.trim() || "";
+            if (meeting.length > 0) {
+              meetingMap[meeting] = meetingLink;
+            }
+            if (issue.length > 0) {
+              issues.push(issue);
+            }
+          });
+          resolve({ issues, meetingMap });
+        },
+        error: reject,
+      }
+    );
+  });
+};
+
+export default function CriticalIssuesMeetings() {
   const csvUrl = `https://docs.google.com/spreadsheets/d/e/${process.env.NEXT_PUBLIC_ISSUES_CSV_ID}/pub?gid=2019171411&single=true&output=csv`;
 
-  useEffect(() => {
-    async function loadIssuesMeetingsData() {
-      try {
-        const parsedData = await fetchCriticalData(csvUrl);
-        if (!parsedData) {
-          throw new Error("Failed to fetch or parse data");
-        }
-        // console.log("Fetched critical data:", parsedData);
-        setData(parsedData);
-      } catch (error) {
-        console.error("Error fetching critical data:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadIssuesMeetingsData();
-    const interval = setInterval(loadIssuesMeetingsData, DATA_REFRESH_INTERVAL);
-    return () => clearInterval(interval);
-  }, [csvUrl]);
+  // Use SWR to fetch the critical data
+  const { data, error } = useSWR<CriticalData>(csvUrl, fetchCriticalData, {
+    refreshInterval: DATA_REFRESH_INTERVAL, // e.g. 10000 (10 secs)
+    dedupingInterval: 5000,
+  });
 
-  if (loading) return <p>Loading critical issues and meeting links...</p>;
+  if (error) return <p>Error loading data.</p>;
+  if (!data) return <p>Loading critical issues and meeting links...</p>;
 
-  // Using only issues and the meeting map
-  const issues = data?.issues || [];
-  const meetingMap = data?.meetingMap || {};
+  const { issues, meetingMap } = data;
 
   return (
     <div className="p-4 bg-white border rounded-lg shadow-md">
