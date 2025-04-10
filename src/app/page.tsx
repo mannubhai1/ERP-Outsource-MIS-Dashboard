@@ -247,6 +247,7 @@ export default function Home() {
             <button
               key={status.key}
               className="text-lg md:text-2xl font-bold rounded p-2 bg-gray-200 text-black"
+              onClick={() => handleTabChange(status.key)}
             >
               {status.label}
             </button>
