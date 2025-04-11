@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
-import Loading from "@/components/Loading";
+// import Loading from "@/components/Loading";
+import Loader from "@/components/LoadingExp";
 import DashboardSection from "@/components/DashboardSection";
 import FinancialDashboard from "@/components/FinancialDashboard";
 
@@ -160,7 +161,8 @@ export default function Home() {
   };
 
   if (loading) {
-    return <Loading />;
+    // return <Loading />;
+    return <Loader />;
   }
 
   // Define statuses for ERP cards view.

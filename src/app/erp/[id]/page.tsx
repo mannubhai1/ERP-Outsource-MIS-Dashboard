@@ -2,7 +2,8 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ERP } from "@/lib/types";
-import Loading from "@/components/Loading";
+// import Loading from "@/components/Loading";
+import Loader from "@/components/LoadingExp";
 import Footer from "@/components/Footer";
 import BackToHomeButton from "@/components/BackToHome";
 import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
@@ -52,7 +53,8 @@ export default function ERPDetailPage() {
   }, [id]);
 
   if (loading) {
-    return <Loading />;
+    // return <Loading />;
+    return <Loader />;
   }
 
   if (!erp) {

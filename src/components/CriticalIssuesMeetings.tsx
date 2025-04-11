@@ -28,8 +28,8 @@ const fetchCriticalData = async (csvUrl: string): Promise<CriticalData> => {
 
           rows.forEach((row) => {
             const meeting = row.Meetings?.trim() || "";
-            const issue = row.Issues?.trim() || "";
             const meetingLink = row.MeetingLinks?.trim() || "";
+            const issue = row.Issues?.trim() || "";
             if (meeting.length > 0) {
               meetingMap[meeting] = meetingLink;
             }

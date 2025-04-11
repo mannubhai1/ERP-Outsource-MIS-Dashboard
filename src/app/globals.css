@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"); */
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -32,7 +34,7 @@
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%; 
+    --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
@@ -243,6 +245,8 @@ a .docs:hover {
   }
 }
 
+/* Loading ends */
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -335,3 +339,50 @@ a .docs:hover {
     --chart-5: 340 75% 55%;
   }
 }
+
+/* Experimental Loader */
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+@keyframes movingLine {
+  0% {
+    opacity: 0;
+    width: 0;
+    left: 0;
+  }
+  33.3%,
+  66% {
+    opacity: 0.8;
+    width: 100%;
+    left: 0;
+  }
+  85% {
+    opacity: 1;
+    width: 0;
+    left: auto;
+    right: 0;
+  }
+  100% {
+    opacity: 0;
+    width: 0;
+  }
+}
+
+@keyframes moveLetters {
+  0% {
+    transform: translateX(-15vw);
+    opacity: 0;
+  }
+  33.3%,
+  66% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(15vw);
+    opacity: 0;
+  }
+}
+
+/* End loader */
