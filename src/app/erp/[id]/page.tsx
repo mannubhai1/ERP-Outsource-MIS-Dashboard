@@ -82,25 +82,6 @@ export default function ERPDetailPage() {
     },
   ];
 
-  // const secondRowData = [
-  //   {
-  //     label: "Current Status",
-  //     value: erp.currentStatus,
-  //     style: "bg-blue-200",
-  //   },
-  //   { label: "Next Steps", value: erp.nextSteps, style: "bg-yellow-200" },
-  //   {
-  //     label: "Support Required",
-  //     value: erp.Support.length == 0 ? ["None"] : erp.Support,
-  //     style: "bg-green-300",
-  //   },
-  //   {
-  //     label: "Issues",
-  //     value: erp.Issues.length == 0 ? ["None"] : erp.Issues,
-  //     style: "bg-red-300",
-  //   },
-  // ];
-
   const companyDocs = [
     { label: "NDA", value: erp.NDA },
     { label: "Agreement", value: erp.Agreement },
@@ -108,6 +89,7 @@ export default function ERPDetailPage() {
     { label: "Brochures", value: erp.Brochures },
     { label: "MOMs", value: erp.MOMs },
     { label: "Implementation Plan", value: erp.implementationPlan },
+    { label: "SOW Tracker", value: erp.SOWTracker },
   ];
 
   let companyDocsLength = 0;
@@ -119,7 +101,6 @@ export default function ERPDetailPage() {
 
   const rmlItems = [
     { label: "Reports", value: erp.Reports },
-    { label: "Milestones", value: erp.Milestones },
     { label: "Comparative", value: erp.Comparative },
     { label: "Miscellaneous", value: erp.Miscellaneous },
     { label: "Correspondence", value: erp.Correspondence },
