@@ -200,64 +200,34 @@ NEXT_PUBLIC_ISSUES_CSV_ID="2PACX-1vSjjqex5XK88aFM9F2zHJsEMjIB4rLgzLwNSnAUjh7V2Q9
 
 ```mermaid
 flowchart TD
-    %% Data Sources
-    GS[Google Sheets] -->|CSV URLs| CSV[CSV Data]
-    
-    %% Main Data Flow
-    CSV -->|Papa Parse| DP[Data Processing]
-    DP -->|Transform| SD[Structured Data]
-    
-    %% API Routes
-    SD -->|API Routes| API["/api/erps", "/api/erps/[id]"]
-    
-    %% Component Data Flow
-    API -->|Fetch| HP[Home Page]
-    API -->|Fetch by ID| DP[Detail Page]
-    
-    %% Home Page Components
-    HP -->|Render| DV[Dashboard View]
-    HP -->|Render| FD[Financial Dashboard]
-    HP -->|Render| EC[ERP Cards]
-    
-    %% Dashboard Components
-    DV -->|Display| CI[Critical Issues & Meetings]
-    DV -->|Display| PP[Pipeline Progress]
-    DV -->|Display| OP[Onboarded Progress]
-    DV -->|Display| OS[Outsourcing Progress]
-    
-    %% Financial Dashboard
-    FD -->|Calculate & Display| OFD[Onboarded Financial Data]
-    FD -->|Calculate & Display| OFC[Outsourcing Financial Data]
-    
-    %% ERP Cards
-    EC -->|Filter by Status| PC[Pipeline Cards]
-    EC -->|Filter by Status| OC[Onboarded Cards]
-    EC -->|Filter by Status| OSC[Outsourcing Cards]
-    
-    %% Detail Page Components
-    DP -->|Display| SI[Status Information]
-    DP -->|Display| NS[Next Steps]
-    DP -->|Display| SR[Support Required]
-    DP -->|Display| IS[Issues]
-    DP -->|Display| VD[Vendor Data]
-    DP -->|Display| RD[RML Data]
-    
-    %% Data Refresh
-    DR[Data Refresh Interval] -->|Trigger| CSV
-    
-    %% User Interactions
-    UI[User Interactions] -->|Tab Selection| HP
-    UI -->|Card Click| DP
+    GS -->|CSV URLs| CSV
+    CSV -->|Papa Parse| DP
+    DP -->|Transform| SD
+    SD -->|API Routes| ApiRoutesNode
+    ApiRoutesNode -->|Fetch| HP
+    ApiRoutesNode -->|Fetch by ID| DetailPage
+    HP -->|Render| DV
+    HP -->|Render| FD
+    HP -->|Render| EC
+    DV -->|Display| CI
+    DV -->|Display| PP
+    DV -->|Display| OP
+    DV -->|Display| OS
+    FD -->|Calculate & Display| OFD
+    FD -->|Calculate & Display| OFC
+    EC -->|Filter by Status| PC
+    EC -->|Filter by Status| OC
+    EC -->|Filter by Status| OSC
+    DetailPage -->|Display| SI
+    DetailPage -->|Display| NS
+    DetailPage -->|Display| SR
+    DetailPage -->|Display| IS
+    DetailPage -->|Display| VD
+    DetailPage -->|Display| RD
+    DR -->|Trigger| CSV
+    UI -->|Tab Selection| HP
+    UI -->|Card Click| DetailPage
     UI -->|Button Click| HP
-    
-    %% Styling
-    style GS fill:#f9f,stroke:#333,stroke-width:2px
-    style API fill:#bbf,stroke:#333,stroke-width:2px
-    style HP fill:#bfb,stroke:#333,stroke-width:2px
-    style DP fill:#bfb,stroke:#333,stroke-width:2px
-    style DV fill:#fbb,stroke:#333,stroke-width:2px
-    style FD fill:#fbb,stroke:#333,stroke-width:2px
-    style EC fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
 ### Detailed Data Flow Explanation
