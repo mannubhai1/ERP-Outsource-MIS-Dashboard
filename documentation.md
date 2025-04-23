@@ -208,7 +208,7 @@ flowchart TD
     DP -->|Transform| SD[Structured Data]
     
     %% API Routes
-    SD -->|API Routes| API["/api/erps" & "/api/erps/[id]"]
+    SD -->|API Routes| API["/api/erps", "/api/erps/[id]"]
     
     %% Component Data Flow
     API -->|Fetch| HP[Home Page]
