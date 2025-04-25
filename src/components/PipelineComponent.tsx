@@ -1,6 +1,14 @@
 "use client";
 import React from "react";
-import { Bar, BarChart, CartesianGrid, Cell, LabelList, XAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  LabelList,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   ChartConfig,
@@ -51,7 +59,7 @@ export function PipelineComponent({ pipelineData }: PipelineComponentProps) {
 
   return (
     <Card>
-      <CardContent className="flex-1 pb-0">
+      <CardContent className="flex-1 pb-0 px-0">
         <a href={chartData[0]?.url} target="_blank" rel="noopener noreferrer ">
           <ChartContainer
             config={chartConfig}
@@ -65,6 +73,13 @@ export function PipelineComponent({ pipelineData }: PipelineComponentProps) {
                 tickMargin={10}
                 axisLine={false}
                 tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={10}
+                domain={[0, 100]}
+                tickFormatter={(value) => `${value}%`}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />
