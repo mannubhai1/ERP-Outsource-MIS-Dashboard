@@ -23,9 +23,9 @@ const getStatusColor = (status: ModuleData["status"]): string => {
     case "not started":
       return "bg-gray-500";
     case "Low":
-      return "bg-red-500";
+      return "bg-red-700";
     case "Medium":
-      return "bg-orange-500";
+      return "bg-orange-400";
     case "Fair":
       return "bg-yellow-500";
     case "Good":
