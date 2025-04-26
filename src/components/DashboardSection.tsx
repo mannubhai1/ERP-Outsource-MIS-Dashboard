@@ -22,16 +22,16 @@ const getStatusColor = (status: ModuleData["status"]): string => {
   switch (status) {
     case "not started":
       return "bg-gray-500";
-    case "initiating":
-      return "bg-blue-500";
-    case "planning":
+    case "Low":
+      return "bg-red-500";
+    case "Medium":
+      return "bg-orange-500";
+    case "Fair":
       return "bg-yellow-500";
-    case "on-track":
+    case "Good":
       return "bg-green-500";
-    case "closing":
-      return "bg-lime-500";
-    case "completed":
-      return "bg-green-800";
+    case "Excellent":
+      return "bg-green-700";
     default:
       return "bg-blue-500";
   }
@@ -41,16 +41,16 @@ const getStatusBadgeColor = (status: ModuleData["status"]): string => {
   switch (status) {
     case "not started":
       return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
-    case "initiating":
-      return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
-    case "planning":
+    case "Low":
+      return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+    case "Medium":
+      return "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+    case "Fair":
       return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
-    case "on-track":
+    case "Good":
       return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
-    case "closing":
-      return "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-300";
-    case "completed":
-      return "bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-100";
+    case "Excellent":
+      return "bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-300";
     default:
       return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
   }

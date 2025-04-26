@@ -6,11 +6,11 @@ import { CsvSheet, SheetPercentage, ModuleData } from "./types";
  */
 function getStatus(progress: number): string {
   if (progress === 0) return "not started";
-  if (progress <= 10) return "initiating";
-  if (progress <= 30) return "planning";
-  if (progress <= 75) return "on-track";
-  if (progress <= 99) return "closing";
-  if (progress === 100) return "completed";
+  if (progress <= 20) return "Low";
+  if (progress <= 40) return "Medium";
+  if (progress <= 60) return "Fair";
+  if (progress <= 80) return "Good";
+  if (progress <= 100) return "Excellent";
   return "unknown";
 }
 
