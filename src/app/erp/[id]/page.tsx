@@ -2,8 +2,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ERP } from "@/lib/types";
-// import Loading from "@/components/Loading";
-import Loader from "@/components/LoadingExp";
+import Loader from "@/components/Loading";
 import Footer from "@/components/Footer";
 import BackToHomeButton from "@/components/BackToHome";
 import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
@@ -17,7 +16,6 @@ export default function ERPDetailPage() {
     let intervalId: NodeJS.Timeout | null = null;
 
     async function loadData() {
-      // setLoading(true);
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL;
         const res = await fetch(`${baseUrl}/api/erps/${id}`, {
@@ -53,7 +51,6 @@ export default function ERPDetailPage() {
   }, [id]);
 
   if (loading) {
-    // return <Loading />;
     return <Loader />;
   }
 

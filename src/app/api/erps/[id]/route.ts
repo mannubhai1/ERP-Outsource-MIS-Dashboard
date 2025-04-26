@@ -11,7 +11,6 @@ export async function GET(
 
   const erps = await fetchGoogleSheetData();
   const erp = erps.find((e) => e.id === parseInt(id));
-  // console.log("hey its me :", erps);
 
   if (!erp) {
     return NextResponse.json({ message: "ERP not found" }, { status: 404 });

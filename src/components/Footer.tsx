@@ -27,7 +27,7 @@ export default function Footer() {
 
         {/* Email */}
         <a
-          href="mailto:manurbhav.arya@rashmigroup.com"
+          href="mailto:manurbhav16@gmail.com"
           className="hover:text-blue-400 transition"
           aria-label="Email"
         >

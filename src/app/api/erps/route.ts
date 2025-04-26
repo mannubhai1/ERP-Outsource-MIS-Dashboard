@@ -5,6 +5,9 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   const erps = await fetchGoogleSheetData();
-  // console.log("hey its me in main route:", erps);
+
+  if (!erps) {
+    return NextResponse.json({ message: "No data found" }, { status: 404 });
+  }
   return NextResponse.json(erps);
 }

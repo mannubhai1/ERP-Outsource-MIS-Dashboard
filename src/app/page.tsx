@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 
 import ERPCard from "@/components/ERPCard";
 import Footer from "@/components/Footer";
-// import Loading from "@/components/Loading";
-import Loader from "@/components/LoadingExp";
+import Loader from "@/components/Loading";
 import DashboardSection from "@/components/DashboardSection";
 import FinancialDashboard from "@/components/FinancialDashboard";
 
 import { calculatePercentages } from "@/lib/calculatePercentages";
-import { ERP, SheetPercentage } from "@/lib/types";
+import { ERP, ModuleData, SheetPercentage } from "@/lib/types";
 import { DATA_REFRESH_INTERVAL } from "@/lib/constants";
 
 import pipelineData from "@/data/pipeline.json";
@@ -31,12 +30,10 @@ export default function Home() {
   const [pipelineProgress, setPipelineProgress] = useState<SheetPercentage[]>(
     []
   );
-  const [onboardedProgress, setOnboardedProgress] = useState<SheetPercentage[]>(
+  const [onboardedProgress, setOnboardedProgress] = useState<ModuleData[]>([]);
+  const [outsourcingProgress, setOutsourcingProgress] = useState<ModuleData[]>(
     []
   );
-  const [outsourcingProgress, setOutsourcingProgress] = useState<
-    SheetPercentage[]
-  >([]);
 
   // Fetch ERP data
   useEffect(() => {
@@ -46,7 +43,6 @@ export default function Home() {
         const res = await fetch(`${baseUrl}/api/erps`, { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to fetch ERP Data");
         const data = await res.json();
-        // console.log("Fetched ERP Data:", data);
         setErps(data);
       } catch (error) {
         console.error("Error fetching ERP data:", error);
@@ -78,7 +74,6 @@ export default function Home() {
           finalPipelineData,
           "pipeline"
         );
-        // console.log("Pipeline Progress Results:", results);
         setPipelineProgress(results as SheetPercentage[]);
       } catch (error) {
         console.error("Error calculating pipeline percentages", error);
@@ -106,7 +101,7 @@ export default function Home() {
           finalOnboardedData,
           "normal"
         );
-        setOnboardedProgress(results as SheetPercentage[]);
+        setOnboardedProgress(results as ModuleData[]);
       } catch (error) {
         console.error("Error calculating onboarded percentages", error);
       }
@@ -133,7 +128,7 @@ export default function Home() {
           finalOutsourcingData,
           "normal"
         );
-        setOutsourcingProgress(results as SheetPercentage[]);
+        setOutsourcingProgress(results as ModuleData[]);
       } catch (error) {
         console.error("Error calculating outsourcing percentages", error);
       }
@@ -161,7 +156,6 @@ export default function Home() {
   };
 
   if (loading) {
-    // return <Loading />;
     return <Loader />;
   }
 
@@ -224,23 +218,9 @@ export default function Home() {
 
   // Helper: Render Heading Tabs
   const renderHeadingTabs = () => {
-    if (selectedTab === "dashboard") {
-      // In dashboard mode, show all three statuses as .
-      return (
-        <></>
-        // <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        //   {statusesForERP.map((status) => (
-        //     <button
-        //       onClick={() => handleTabChange(status.key)}
-        //       key={status.key}
-        //       className="text-lg md:text-2xl font-bold rounded p-2 bg-gray-200 text-black"
-        //     >
-        //       {status.label}
-        //     </button>
-        //   ))}
-        // </div>
-      );
-    } else if (selectedTab === "financial") {
+    // In dashboard mode, show all three statuses as .
+    if (selectedTab === "dashboard") return;
+    else if (selectedTab === "financial") {
       // In financial mode, show only onboarded and outsourcing (filter out pipeline).
       const financialTabs = statusesForERP.filter((s) => s.key !== "pipeline");
       return (

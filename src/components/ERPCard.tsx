@@ -5,7 +5,6 @@ export default function ERPCard({ erp }: { erp: ERP }) {
   const targetDates = erp.targetDate || [];
   const extendedDates = erp.extendedDate || [];
   const hasExtendedDate = extendedDates.length > 0;
-  // console.log("ERPCard", erp);
 
   interface DelayStatusClasses {
     [key: string]: string;

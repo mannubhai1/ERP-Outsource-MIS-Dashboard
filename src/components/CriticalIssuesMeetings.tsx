@@ -60,10 +60,7 @@ export default function CriticalIssuesMeetings() {
   const { issues, meetingMap } = data;
 
   return (
-    <div className="p-4 bg-white border rounded-lg shadow-md">
-      <h2 className="text-xl md:text-2xl font-bold mb-4">
-        Critical Issues / Upcoming Meetings
-      </h2>
+    <div>
       <div className="flex flex-col gap-4">
         {/* Meeting Links Section */}
         <div className="p-2 border-b border-gray-300">

@@ -60,13 +60,18 @@ export interface SheetPercentage {
   url: string;
 }
 
-export interface PipelineProgress {
-  erpName: string;
-  progress: number;
-}
-
 export interface CsvSheet {
   name: string;
   csvUrl: string;
+  url: string;
+}
+
+export interface ModuleData {
+  id: string;
+  name: string;
+  progress: number;
+  priority: "low" | "medium" | "high";
+  tasks: number;
+  tasksCompleted: number;
   url: string;
 }
