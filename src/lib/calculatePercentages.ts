@@ -5,7 +5,7 @@ import { CsvSheet, SheetPercentage, ModuleData } from "./types";
  * Determine the status based on progress percentage.
  */
 function getStatus(progress: number): string {
-  if (progress === 0) return "not started";
+  if (progress === 0) return "Not Started";
   if (progress <= 20) return "Low";
   if (progress <= 40) return "Medium";
   if (progress <= 60) return "Fair";
