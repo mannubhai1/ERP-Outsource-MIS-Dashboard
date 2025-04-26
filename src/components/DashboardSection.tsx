@@ -50,7 +50,7 @@ export default function DashboardSection({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       {/* Meetings */}
       <section>
         <h1 className="text-3xl font-semibold mb-4 text-gray-800">
@@ -61,19 +61,11 @@ export default function DashboardSection({
         </div>
       </section>
 
-      {/* Pipeline */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">Pipeline</h2>
-        <div>
-          <PipelineComponent pipelineData={pipelineProgress} />
-        </div>
-      </section>
-
       {/* OnBoarded ERP Tracker */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+        <h1 className="text-3xl font-semibold mb-4 text-gray-800">
           OnBoarded ERP Tracker
-        </h2>
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {onboardedProgress.map((item) => (
             <Card
@@ -166,74 +158,10 @@ export default function DashboardSection({
       </section>
 
       {/* Outsourcing Contracts Tracker */}
-      {/* <section>
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-          Outsourcing Contracts Tracker
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {outsourcingProgress.map((item) => (
-            <Card
-              key={item.id}
-              className="
-              group
-              overflow-hidden
-              bg-white
-              rounded-lg
-              shadow-sm
-              transform
-              transition
-              duration-300
-              ease-in-out
-              hover:-translate-y-2
-              hover:scale-105
-              hover:shadow-lg
-            "
-            >
-              <div className={`${getPriorityColor(item.priority)} h-1`} />
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-medium">
-                    {item.name}
-                  </CardTitle>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityBadgeColor(
-                      item.priority
-                    )}`}
-                  >
-                    {item.priority}
-                  </span>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm text-gray-600">
-                    <span>Progress</span>
-                    <span className="font-medium">{item.progress}%</span>
-                  </div>
-                  <Progress value={item.progress} className="h-2 rounded" />
-                  <div className="flex justify-between text-sm text-gray-500">
-                    <span>
-                      Modules: {item.tasksCompleted}/{item.tasks}
-                    </span>
-                    <a
-                      href={item.url}
-                      className="text-primary hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Details
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section> */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+        <h1 className="text-3xl font-semibold mb-4 text-gray-800">
           Outsourcing Contracts Tracker
-        </h2>
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {outsourcingProgress.map((item) => (
             <Card
@@ -322,6 +250,14 @@ export default function DashboardSection({
               </div>
             </Card>
           ))}
+        </div>
+      </section>
+
+      {/* Pipeline */}
+      <section>
+        <h1 className="text-3xl font-semibold mb-4 text-gray-800">Pipeline</h1>
+        <div>
+          <PipelineComponent pipelineData={pipelineProgress} />
         </div>
       </section>
     </div>
