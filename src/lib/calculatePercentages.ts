@@ -1,6 +1,19 @@
 import Papa from "papaparse";
 import { CsvSheet, SheetPercentage, ModuleData } from "./types";
 
+/**
+ * Determine the status based on progress percentage.
+ */
+function getStatus(progress: number): string {
+  if (progress === 0) return "not started";
+  if (progress <= 10) return "initiating";
+  if (progress <= 30) return "planning";
+  if (progress <= 75) return "on-track";
+  if (progress <= 99) return "closing";
+  if (progress === 100) return "completed";
+  return "unknown";
+}
+
 export async function calculatePercentages(
   sheets: CsvSheet[],
   mode: "normal" | "pipeline" = "normal"
@@ -23,12 +36,12 @@ export async function calculatePercentages(
           const headers = parsed.meta.fields ?? [];
           const rows = parsed.data;
           if (headers.length < 18 || rows.length === 0) {
-            // explicit ModuleData fallback
+            // Fallback for insufficient data
             const emptyModule: ModuleData = {
               id: sheet.name,
               name: sheet.name,
               progress: 0,
-              priority: "low",
+              status: getStatus(0),
               tasks: 0,
               tasksCompleted: 0,
               url: sheet.url,
@@ -39,26 +52,22 @@ export async function calculatePercentages(
           const first = rows[0];
           const done = parseInt(first[headers[16]] ?? "0", 10);
           const total = parseInt(first[headers[17]] ?? "0", 10);
-          const progress = total > 0 ? (done / total) * 100 : 0;
-
-          let priority: "low" | "medium" | "high" = "low";
-          if (progress > 20 && progress < 75) priority = "medium";
-          else if (progress >= 75) priority = "high";
-
-          progress.toFixed(0);
+          const rawProgress = total > 0 ? (done / total) * 100 : 0;
+          const progress = parseInt(rawProgress.toFixed(0), 10);
+          const status = getStatus(progress);
 
           const moduleData: ModuleData = {
             id: sheet.name,
             name: sheet.name,
-            progress: parseInt(progress.toFixed(0)),
-            priority,
+            progress,
+            status,
             tasks: total,
             tasksCompleted: done,
             url: sheet.url,
           };
           return [moduleData];
         } else {
-          // pipeline → SheetPercentage[]
+          // Pipeline mode: calculate per-stage percentages
           const headers = parsed.meta.fields ?? [];
           if (headers.length < 2) {
             throw new Error("Not enough columns for pipeline mode");
@@ -90,7 +99,7 @@ export async function calculatePercentages(
             id: sheet.name,
             name: sheet.name,
             progress: 0,
-            priority: "low",
+            status: getStatus(0),
             tasks: 0,
             tasksCompleted: 0,
             url: sheet.url,

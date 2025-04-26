@@ -70,7 +70,7 @@ export interface ModuleData {
   id: string;
   name: string;
   progress: number;
-  priority: "low" | "medium" | "high";
+  status: string;
   tasks: number;
   tasksCompleted: number;
   url: string;
