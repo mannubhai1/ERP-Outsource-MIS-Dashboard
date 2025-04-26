@@ -20,7 +20,7 @@ interface DashboardSectionProps {
 
 const getStatusColor = (status: ModuleData["status"]): string => {
   switch (status) {
-    case "not started":
+    case "Not Started":
       return "bg-gray-500";
     case "Low":
       return "bg-red-700";
@@ -39,7 +39,7 @@ const getStatusColor = (status: ModuleData["status"]): string => {
 
 const getStatusBadgeColor = (status: ModuleData["status"]): string => {
   switch (status) {
-    case "not started":
+    case "Not Started":
       return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
     case "Low":
       return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
